@@ -1,101 +1,60 @@
 'use client'
-import {
-  Pagination as PaginationComponent,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination'
 import { cn } from '@/utilities/ui'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import React from 'react'
+
+const circleBase =
+  'flex items-center justify-center w-9 h-9 rounded-full text-sm border border-gray-200 transition-colors'
 
 export const Pagination: React.FC<{
   className?: string
   page: number
   totalPages: number
-}> = (props) => {
-  const router = useRouter()
-
-  const { className, page, totalPages } = props
+}> = ({ className, page, totalPages }) => {
   const hasNextPage = page < totalPages
   const hasPrevPage = page > 1
-
   const hasExtraPrevPages = page - 1 > 1
   const hasExtraNextPages = page + 1 < totalPages
 
   return (
-    <div className={cn('my-12', className)}>
-      <PaginationComponent>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              disabled={!hasPrevPage}
-              onClick={() => {
-                router.push(`/posts/page/${page - 1}`)
-              }}
-            />
-          </PaginationItem>
+    <div className={cn('flex items-center gap-2 my-12', className)}>
+      {hasExtraPrevPages && (
+        <>
+          <Link href={`/posts/page/1`} className={circleBase}>
+            1
+          </Link>
+          <span className="px-1">…</span>
+        </>
+      )}
 
-          {hasExtraPrevPages && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
+      {hasPrevPage && (
+        <Link href={`/posts/page/${page - 1}`} className={circleBase}>
+          {page - 1}
+        </Link>
+      )}
 
-          {hasPrevPage && (
-            <PaginationItem>
-              <PaginationLink
-                onClick={() => {
-                  router.push(`/posts/page/${page - 1}`)
-                }}
-              >
-                {page - 1}
-              </PaginationLink>
-            </PaginationItem>
-          )}
+      <span className={cn(circleBase, 'bg-black text-white border-black')}>{page}</span>
 
-          <PaginationItem>
-            <PaginationLink
-              isActive
-              onClick={() => {
-                router.push(`/posts/page/${page}`)
-              }}
-            >
-              {page}
-            </PaginationLink>
-          </PaginationItem>
+      {hasNextPage && (
+        <Link href={`/posts/page/${page + 1}`} className={circleBase}>
+          {page + 1}
+        </Link>
+      )}
 
-          {hasNextPage && (
-            <PaginationItem>
-              <PaginationLink
-                onClick={() => {
-                  router.push(`/posts/page/${page + 1}`)
-                }}
-              >
-                {page + 1}
-              </PaginationLink>
-            </PaginationItem>
-          )}
+      {hasExtraNextPages && (
+        <>
+          <span className="px-1">…</span>
+          <Link href={`/posts/page/${totalPages}`} className={circleBase}>
+            {totalPages}
+          </Link>
+        </>
+      )}
 
-          {hasExtraNextPages && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-
-          <PaginationItem>
-            <PaginationNext
-              disabled={!hasNextPage}
-              onClick={() => {
-                router.push(`/posts/page/${page + 1}`)
-              }}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </PaginationComponent>
+      {hasNextPage && (
+        <Link href={`/posts/page/${page + 1}`} className={circleBase} aria-label="Next page">
+          →
+        </Link>
+      )}
     </div>
   )
 }
