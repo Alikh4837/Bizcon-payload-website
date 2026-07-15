@@ -2,7 +2,7 @@ import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { Pagination } from '@/components/Pagination'
-import { BlogSidebar } from '@/components/BlogSidebar'
+import { BlogSidebar } from '@/components/BlogSideBar'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
