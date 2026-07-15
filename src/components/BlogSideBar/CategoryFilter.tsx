@@ -10,7 +10,7 @@ export const CategoryFilter: React.FC<{
 
   return (
     <select
-      className="w-full border border-gray-200 rounded px-3 py-2 text-sm text-gray-500"
+      className="w-full border border-border bg-background text-foreground rounded px-3 py-2 text-sm"
       value={activeCategory || ''}
       onChange={(e) => {
         const value = e.target.value
