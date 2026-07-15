@@ -1,8 +1,8 @@
 import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
-import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
+import { BlogSidebar } from '@/components/BlogSidebar'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -28,29 +28,16 @@ export default async function Page() {
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <div className="pt-16 pb-24">
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
+      <div className="container grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
+        <div>
+          <CollectionArchive posts={posts.docs} />
+          {posts.totalPages > 1 && posts.page && (
+            <Pagination page={posts.page} totalPages={posts.totalPages} />
+          )}
         </div>
-      </div>
-
-      <div className="container mb-8">
-        <PageRange
-          collection="posts"
-          currentPage={posts.page}
-          limit={12}
-          totalDocs={posts.totalDocs}
-        />
-      </div>
-
-      <CollectionArchive posts={posts.docs} />
-
-      <div className="container">
-        {posts.totalPages > 1 && posts.page && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
-        )}
+        <BlogSidebar />
       </div>
     </div>
   )
@@ -58,6 +45,6 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Posts`,
+    title: `Blog - BizCon Global`,
   }
 }
