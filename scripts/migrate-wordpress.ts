@@ -31,7 +31,7 @@
  *   npm install --save-dev @types/jsdom
  *   npm install tsx --save-dev   (if you don't already have a TS runner)
  */
-
+import sharp from 'sharp'
 import 'dotenv/config'
 import { getPayload } from 'payload'
 import config from '@payload-config'
@@ -294,22 +294,30 @@ async function downloadAndUploadImage(
 ): Promise<{ id: number; url: string } | null> {
   if (mediaCache.has(imageUrl)) return mediaCache.get(imageUrl)!
 
-  // Small fixed delay before every download, on top of the retry backoff,
-  // so we're not hammering the source site request-after-request.
   await sleep(IMAGE_DOWNLOAD_DELAY_MS)
 
   try {
     const { buffer, mimetype } = (await fetchImageWithRetry(imageUrl))!
-    const filename = safeFilenameFromUrl(imageUrl, mimetype)
+    let filename = safeFilenameFromUrl(imageUrl, mimetype)
+
+    // AVIF metadata isn't reliably read by Payload's dimension extraction —
+    // convert to JPEG before upload so width/height always get set correctly.
+    let finalBuffer = buffer
+    let finalMimetype = mimetype
+    if (mimetype === 'image/avif' || filename.toLowerCase().endsWith('.avif')) {
+      finalBuffer = await sharp(buffer).jpeg({ quality: 90 }).toBuffer()
+      finalMimetype = 'image/jpeg'
+      filename = filename.replace(/\.avif$/i, '.jpg')
+    }
 
     const uploaded = await payload.create({
       collection: 'media',
       data: { alt: alt || filename },
       file: {
-        data: buffer,
-        mimetype,
+        data: finalBuffer,
+        mimetype: finalMimetype,
         name: filename,
-        size: buffer.length,
+        size: finalBuffer.length,
       },
     })
 
