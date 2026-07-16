@@ -45,6 +45,8 @@
   --breakpoint-2xl: 86rem;
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-geist-sans);
+  /* Display face used for headlines — see Card, PostContentHeader */
+  --font-display: var(--font-fraunces);
 }
 
 @layer utilities {
@@ -123,6 +125,19 @@
   --success: oklch(78% 0.08 200deg);
   --warning: oklch(89% 0.1 75deg);
   --error: oklch(75% 0.15 25deg);
+
+  /* ---- Brand tokens: "financial dossier" direction ---- */
+  --brand-ink: oklch(27% 0.035 255deg); /* deep navy, replaces flat black for headlines */
+  --brand-accent: oklch(66% 0.12 80deg); /* brass/gold — ledger-seal, not the generic AI terracotta */
+  --brand-accent-foreground: oklch(20% 0.03 255deg);
+  --brand-surface: oklch(98.2% 0.004 255deg); /* barely-cool off-white for section bands */
+  --brand-line: oklch(90% 0.006 255deg); /* hairline border, cooler than pure gray */
+
+  /* Category tag accents — cycled deterministically by category slug, see categoryAccent.ts */
+  --tag-1: oklch(45% 0.09 255deg); /* navy */
+  --tag-2: oklch(66% 0.12 80deg); /* gold */
+  --tag-3: oklch(55% 0.08 190deg); /* teal */
+  --tag-4: oklch(58% 0.12 30deg); /* clay-red */
 }
 
 [data-theme='dark'] {
@@ -161,6 +176,17 @@
   --success: oklch(28% 0.1 200deg);
   --warning: oklch(35% 0.08 70deg);
   --error: oklch(45% 0.1 25deg);
+
+  --brand-ink: oklch(92% 0.01 255deg);
+  --brand-accent: oklch(72% 0.12 80deg);
+  --brand-accent-foreground: oklch(18% 0.02 255deg);
+  --brand-surface: oklch(19% 0.006 255deg);
+  --brand-line: oklch(30% 0.008 255deg);
+
+  --tag-1: oklch(70% 0.09 255deg);
+  --tag-2: oklch(75% 0.12 80deg);
+  --tag-3: oklch(68% 0.08 190deg);
+  --tag-4: oklch(68% 0.12 30deg);
 }
 
 @theme inline {
@@ -203,6 +229,13 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+
+  /* Brand tokens exposed as Tailwind utilities: bg-brand-accent, text-brand-ink, border-brand-line, font-display */
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-foreground: var(--brand-accent-foreground);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-line: var(--brand-line);
 }
 
 @layer base {
