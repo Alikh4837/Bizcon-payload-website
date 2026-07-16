@@ -91,7 +91,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
       pictureClassName,
     )}
   >
-    {/* <NextImage
+    <NextImage
       alt={alt || ''}
       className={cn(imgClassName)}
       fill={fill}
@@ -104,11 +104,11 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
       loading={loading}
       sizes={sizes}
       src={src}
-    /> */}
-    <img
+    />
+    {/* <img
   src={typeof src === 'string' ? src : src.src}
   alt={alt || ''}
   className="w-full h-full object-cover"
-/>
+/> */}
   </div>
 )}

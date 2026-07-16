@@ -38,7 +38,7 @@ export const PostContentHeader: React.FC<{ post: Post }> = ({ post }) => {
 
       {heroImage && typeof heroImage === 'object' && (
       <div className="rounded-md overflow-hidden mb-8">
-        <ImageWithFallback resource={heroImage} imgClassName="w-full h-auto object-cover" />
+        <ImageWithFallback resource={heroImage} imgClassName="w-full h-auto object-cover fill" />
       </div>
 )}
     </div>
