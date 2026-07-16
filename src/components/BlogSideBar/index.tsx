@@ -72,7 +72,7 @@ export const BlogSidebar: React.FC<{ activeCategory?: string }> = async ({ activ
           Talk to an advisor about tax, compliance, or setting up your business in the Gulf.
         </p>
         <Link
-          href="/contact-us"
+          href="/contact"
           className="inline-block rounded-md bg-brand-ink text-background text-sm font-medium px-4 py-2 hover:opacity-90 transition-opacity"
         >
           Book a consultation

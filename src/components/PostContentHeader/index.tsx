@@ -2,7 +2,8 @@ import React from 'react'
 import { formatDateTime } from 'src/utilities/formatDateTime'
 import type { Post } from '@/payload-types'
 import { formatAuthors } from '@/utilities/formatAuthors'
-import { Media } from '@/components/Media'
+// import { Media } from '@/components/Media'
+import { ImageWithFallback } from '@/components/Media/ImageWithFallback'
 import { getCategoryAccent } from '@/utilities/categoryAccent'
 
 export const PostContentHeader: React.FC<{ post: Post }> = ({ post }) => {
@@ -35,11 +36,11 @@ export const PostContentHeader: React.FC<{ post: Post }> = ({ post }) => {
         {publishedAt && <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>}
       </div>
 
-      {heroImage && typeof heroImage !== 'string' && (
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg bg-muted">
-          <Media resource={heroImage} fill imgClassName="object-cover" />
-        </div>
-      )}
+      {heroImage && typeof heroImage === 'object' && (
+      <div className="rounded-md overflow-hidden mb-8">
+        <ImageWithFallback resource={heroImage} imgClassName="w-full h-auto object-cover" />
+      </div>
+)}
     </div>
   )
 }

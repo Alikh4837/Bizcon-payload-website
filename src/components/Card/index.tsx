@@ -32,7 +32,7 @@ export const Card: React.FC<{
   const excerpt = meta?.description
 
   if (!titleToUse) return null
-
+console.log("Hero Image:", heroImage)
   return (
     <article
       className={cn(

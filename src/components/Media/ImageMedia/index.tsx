@@ -85,21 +85,30 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         .join(', ')
 
   return (
-    <picture className={cn(pictureClassName)}>
-      <NextImage
-        alt={alt || ''}
-        className={cn(imgClassName)}
-        fill={fill}
-        height={!fill ? height : undefined}
-        placeholder="blur"
-        blurDataURL={placeholderBlur}
-        priority={priority}
-        quality={100}
-        loading={loading}
-        sizes={sizes}
-        src={src}
-        width={!fill ? width : undefined}
-      />
-    </picture>
-  )
-}
+  <div
+    className={cn(
+      fill && 'relative h-full w-full',
+      pictureClassName,
+    )}
+  >
+    {/* <NextImage
+      alt={alt || ''}
+      className={cn(imgClassName)}
+      fill={fill}
+      height={!fill ? height : undefined}
+      width={!fill ? width : undefined}
+      placeholder="blur"
+      blurDataURL={placeholderBlur}
+      priority={priority}
+      quality={100}
+      loading={loading}
+      sizes={sizes}
+      src={src}
+    /> */}
+    <img
+  src={typeof src === 'string' ? src : src.src}
+  alt={alt || ''}
+  className="w-full h-full object-cover"
+/>
+  </div>
+)}
