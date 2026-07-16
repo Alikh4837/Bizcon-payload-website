@@ -18,10 +18,7 @@ export const PostNavigation: React.FC<{
       overrideAccess: false,
       sort: '-publishedAt',
       where: {
-        and: [
-          { publishedAt: { less_than: publishedAt } },
-          { id: { not_equals: currentId } },
-        ],
+        and: [{ publishedAt: { less_than: publishedAt } }, { id: { not_equals: currentId } }],
       },
       select: { title: true, slug: true },
     }),
@@ -31,10 +28,7 @@ export const PostNavigation: React.FC<{
       overrideAccess: false,
       sort: 'publishedAt',
       where: {
-        and: [
-          { publishedAt: { greater_than: publishedAt } },
-          { id: { not_equals: currentId } },
-        ],
+        and: [{ publishedAt: { greater_than: publishedAt } }, { id: { not_equals: currentId } }],
       },
       select: { title: true, slug: true },
     }),
@@ -46,21 +40,36 @@ export const PostNavigation: React.FC<{
   if (!prevPost && !nextPost) return null
 
   return (
-    <div className="flex justify-between items-center border-t border-border pt-6 mt-10 gap-4">
-      <div>
-        {prevPost && (
-          <Link href={`/posts/${prevPost.slug}`} className="text-sm hover:underline">
-            ← {prevPost.title}
-          </Link>
-        )}
-      </div>
-      <div className="text-right">
-        {nextPost && (
-          <Link href={`/posts/${nextPost.slug}`} className="text-sm hover:underline">
-            {nextPost.title} →
-          </Link>
-        )}
-      </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12 pt-8 border-t border-brand-line">
+      {prevPost ? (
+        <Link
+          href={`/posts/${prevPost.slug}`}
+          className="group rounded-lg border border-brand-line p-5 hover:border-brand-ink transition-colors"
+        >
+          <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
+            ← Previous
+          </span>
+          <span className="font-display text-base font-medium text-brand-ink group-hover:underline">
+            {prevPost.title}
+          </span>
+        </Link>
+      ) : (
+        <div />
+      )}
+
+      {nextPost && (
+        <Link
+          href={`/posts/${nextPost.slug}`}
+          className="group rounded-lg border border-brand-line p-5 text-right hover:border-brand-ink transition-colors"
+        >
+          <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
+            Next →
+          </span>
+          <span className="font-display text-base font-medium text-brand-ink group-hover:underline">
+            {nextPost.title}
+          </span>
+        </Link>
+      )}
     </div>
   )
 }
