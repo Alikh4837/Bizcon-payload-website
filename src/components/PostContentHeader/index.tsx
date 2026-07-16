@@ -3,34 +3,41 @@ import { formatDateTime } from 'src/utilities/formatDateTime'
 import type { Post } from '@/payload-types'
 import { formatAuthors } from '@/utilities/formatAuthors'
 import { Media } from '@/components/Media'
+import { getCategoryAccent } from '@/utilities/categoryAccent'
 
 export const PostContentHeader: React.FC<{ post: Post }> = ({ post }) => {
   const { categories, heroImage, populatedAuthors, publishedAt, title } = post
 
   const hasAuthors =
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
-  const hasCategories = categories && categories.length > 0
+  const primaryCategory = categories?.find((c) => typeof c === 'object')
+  const categoryTitle = typeof primaryCategory === 'object' ? primaryCategory?.title : undefined
+  const categorySlug = typeof primaryCategory === 'object' ? primaryCategory?.slug : undefined
+  const accent = getCategoryAccent(categorySlug)
 
   return (
-    <div className="mb-8">
-      <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">{title}</h1>
+    <div className="mb-10">
+      {categoryTitle && (
+        <span
+          className="mb-4 inline-block font-mono text-xs font-semibold uppercase tracking-wider"
+          style={{ color: accent }}
+        >
+          {categoryTitle}
+        </span>
+      )}
 
-      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+      <h1 className="font-display text-3xl md:text-5xl font-semibold leading-tight text-brand-ink mb-5">
+        {title}
+      </h1>
+
+      <div className="flex flex-wrap items-center gap-4 font-mono text-xs uppercase tracking-wider text-muted-foreground mb-8 pb-8 border-b border-brand-line">
         {hasAuthors && <span>By {formatAuthors(populatedAuthors)}</span>}
         {publishedAt && <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>}
-        {hasCategories && (
-          <span className="uppercase">
-            {categories
-              ?.map((c) => (typeof c === 'object' ? c.title : ''))
-              .filter(Boolean)
-              .join(', ')}
-          </span>
-        )}
       </div>
 
       {heroImage && typeof heroImage !== 'string' && (
-        <div className="rounded-md overflow-hidden mb-8">
-          <Media resource={heroImage} imgClassName="w-full h-auto object-cover" />
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg bg-muted">
+          <Media resource={heroImage} fill imgClassName="object-cover" />
         </div>
       )}
     </div>
