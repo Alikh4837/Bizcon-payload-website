@@ -31,11 +31,14 @@ export default async function Page({ params: paramsPromise }: Args) {
     limit: 12,
     page: sanitizedPageNumber,
     overrideAccess: false,
+    sort: '-publishedAt',
     select: {
       title: true,
       slug: true,
       categories: true,
       meta: true,
+      heroImage: true,
+      publishedAt: true,
     },
   })
 
@@ -44,6 +47,9 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       <div className="container grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
         <div>
+          {/* showFeatured intentionally omitted here — page 1's featured card already covers
+              the latest post; on page 2+ the first item isn't the true "latest" so it stays
+              in the regular grid. */}
           <CollectionArchive posts={posts.docs} />
           {posts?.page && posts?.totalPages > 1 && (
             <Pagination page={posts.page} totalPages={posts.totalPages} />
