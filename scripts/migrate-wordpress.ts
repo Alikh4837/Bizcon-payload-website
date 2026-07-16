@@ -32,6 +32,7 @@
  *   npm install tsx --save-dev   (if you don't already have a TS runner)
  */
 
+import 'dotenv/config'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { convertHTMLToLexical, editorConfigFactory } from '@payloadcms/richtext-lexical'
@@ -196,6 +197,44 @@ const mediaCache = new Map<string, { id: number; url: string }>()
 // need manual follow-up, instead of that only being visible in scrollback.
 const imageFailures: { imageUrl: string; reason: string }[] = []
 
+const MIN_VALID_IMAGE_BYTES = 2048
+
+function hasValidImageSignature(buffer: Buffer): boolean {
+  if (buffer.length < 12) return false
+  const hex = buffer.subarray(0, 12).toString('hex')
+  const isJPEG = hex.startsWith('ffd8ff')
+  const isPNG = hex.startsWith('89504e47')
+  const isGIF = hex.startsWith('474946383761') || hex.startsWith('474946383961')
+  const isWEBP = hex.startsWith('52494646') && buffer.subarray(8, 12).toString() === 'WEBP'
+  const isAVIF = buffer.subarray(4, 8).toString() === 'ftyp'
+  return isJPEG || isPNG || isGIF || isWEBP || isAVIF
+}
+
+// Derives a clean, safe filename from a URL. Falls back to a timestamped
+// name rather than ever producing a base64-fragment-looking name (which is
+// what happened when a data: URI slipped through and got split on '/').
+function safeFilenameFromUrl(imageUrl: string, mimetype: string): string {
+  if (imageUrl.startsWith('data:')) {
+    const ext = mimetype.split('/')[1]?.split('+')[0] || 'jpg'
+    return `image-${Date.now()}.${ext}`
+  }
+
+  try {
+    const pathname = new URL(imageUrl).pathname
+    const base = pathname.split('/').pop() || ''
+    // Reject anything that doesn't look like a normal filename with an
+    // extension (letters/numbers/dashes/underscores/dots only)
+    if (base && /^[\w\-.]+\.\w{2,5}$/.test(base)) {
+      return base
+    }
+  } catch {
+    // fall through to default below
+  }
+
+  const ext = mimetype.split('/')[1]?.split('+')[0] || 'jpg'
+  return `image-${Date.now()}.${ext}`
+}
+
 async function fetchImageWithRetry(
   imageUrl: string,
 ): Promise<{ buffer: Buffer; mimetype: string } | null> {
@@ -219,10 +258,20 @@ async function fetchImageWithRetry(
       }
 
       const arrayBuffer = await res.arrayBuffer()
-      return {
-        buffer: Buffer.from(arrayBuffer),
-        mimetype: res.headers.get('content-type') || 'image/jpeg',
+      const buffer = Buffer.from(arrayBuffer)
+      const mimetype = res.headers.get('content-type') || 'image/jpeg'
+
+      // Reject anything that isn't a real, sufficiently-sized image BEFORE
+      // it ever reaches Payload. This is what actually stops corrupted /
+      // placeholder files from being imported again.
+      if (buffer.length < MIN_VALID_IMAGE_BYTES) {
+        throw new Error(`File too small to be a real image (${buffer.length} bytes)`)
       }
+      if (!hasValidImageSignature(buffer)) {
+        throw new Error('File does not have a valid image signature (not a real image file)')
+      }
+
+      return { buffer, mimetype }
     } catch (err) {
       lastError = err as Error
       if (attempt < IMAGE_DOWNLOAD_MAX_RETRIES) {
@@ -251,7 +300,7 @@ async function downloadAndUploadImage(
 
   try {
     const { buffer, mimetype } = (await fetchImageWithRetry(imageUrl))!
-    const filename = imageUrl.split('/').pop()?.split('?')[0] || `image-${Date.now()}.jpg`
+    const filename = safeFilenameFromUrl(imageUrl, mimetype)
 
     const uploaded = await payload.create({
       collection: 'media',
@@ -304,10 +353,10 @@ async function convertBodyToLexical(
   const updatedHTML = dom.window.document.body.innerHTML
 
   return convertHTMLToLexical({
-  editorConfig: await editorConfigFactory.default({ config: payload.config }),
-  html: updatedHTML,
-  JSDOM,
-})
+    editorConfig: await editorConfigFactory.default({ config: payload.config }),
+    html: updatedHTML,
+    JSDOM,
+  })
 }
 
 // ---------------------------------------------------------------------------
@@ -355,6 +404,7 @@ async function migrate() {
                 collection: 'posts',
                 id: existingPost.id,
                 data: { heroImage: uploaded.id },
+                context: { disableRevalidate: true },
               })
               console.log(`${label} -> backfilled missing hero image`)
               results.created += 0 // not a new post; tracked separately below
@@ -406,6 +456,7 @@ async function migrate() {
       await payload.create({
         collection: 'posts',
         draft: false,
+        context: { disableRevalidate: true },
         data: {
           title: decodeEntities(wpPost.title.rendered),
           slug: wpPost.slug,
