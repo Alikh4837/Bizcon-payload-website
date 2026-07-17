@@ -19,8 +19,9 @@ export const Card: React.FC<{
   /** Larger, image-left layout — used for the single latest post at the top of the archive */
   featured?: boolean
   title?: string
+  showCategories?: boolean 
 }> = (props) => {
-  const { className, doc, relationTo = 'posts', featured = false, title: titleFromProps } = props
+  const { className, doc, relationTo = 'posts', featured = false, title: titleFromProps, showCategories = true } = props
   const { slug, title, categories, meta, heroImage, publishedAt } = doc || {}
   const titleToUse = titleFromProps || title
   const href = `/${relationTo}/${slug}`
