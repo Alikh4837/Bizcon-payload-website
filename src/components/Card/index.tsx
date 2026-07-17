@@ -16,13 +16,11 @@ export const Card: React.FC<{
   className?: string
   doc?: CardPostData
   relationTo?: 'posts'
-  /** Larger, image-left layout — used for the single latest post at the top of the archive */
   featured?: boolean
   title?: string
-  showCategories?: boolean 
 }> = (props) => {
-  const { className, doc, relationTo = 'posts', featured = false, title: titleFromProps, showCategories = true } = props
-  const { slug, title, categories, meta, heroImage, publishedAt } = doc || {}
+  const { className, doc, relationTo = 'posts', featured = false, title: titleFromProps } = props
+  const { slug, title, meta, heroImage, publishedAt, categories } = doc || {}
   const titleToUse = titleFromProps || title
   const href = `/${relationTo}/${slug}`
 
@@ -33,7 +31,7 @@ export const Card: React.FC<{
   const excerpt = meta?.description
 
   if (!titleToUse) return null
-console.log("Hero Image:", heroImage)
+
   return (
     <article
       className={cn(
