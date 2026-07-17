@@ -32,11 +32,16 @@
  *   npm install tsx --save-dev   (if you don't already have a TS runner)
  */
 import sharp from 'sharp'
-import 'dotenv/config'
-import { getPayload } from 'payload'
-import config from '@payload-config'
-import { convertHTMLToLexical, editorConfigFactory } from '@payloadcms/richtext-lexical'
+import { config as loadEnv } from 'dotenv'
 import { JSDOM } from 'jsdom'
+
+// Load env vars FIRST, before anything that reads them
+loadEnv({ path: '.env.local' })
+
+// Now dynamically import everything that depends on process.env being set
+const { getPayload } = await import('payload')
+const { default: config } = await import('@payload-config')
+const { convertHTMLToLexical, editorConfigFactory } = await import('@payloadcms/richtext-lexical')
 
 // ---------------------------------------------------------------------------
 // Config
