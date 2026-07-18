@@ -34,7 +34,6 @@
 import sharp from 'sharp'
 import { config as loadEnv } from 'dotenv'
 import { JSDOM } from 'jsdom'
-
 // Load env vars FIRST, before anything that reads them
 loadEnv({ path: '.env.local' })
 
@@ -378,6 +377,7 @@ async function convertBodyToLexical(
 
 async function migrate() {
   const payload = await getPayload({ config })
+  console.log('Media upload config:', JSON.stringify(payload.config.collections.find(c => c.slug === 'media')?.upload))
 
   console.log('Fetching posts from WordPress REST API...')
   const wpPosts = await fetchAllPosts()
@@ -471,6 +471,7 @@ async function migrate() {
         draft: false,
         context: { disableRevalidate: true },
         data: {
+          _status:'published',
           title: decodeEntities(wpPost.title.rendered),
           slug: wpPost.slug,
           publishedAt: wpPost.date_gmt + 'Z',

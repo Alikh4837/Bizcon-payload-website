@@ -16,6 +16,7 @@ import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { Comments } from './collections/Comments'
 import { Tags } from './collections/Tags'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -67,13 +68,23 @@ export default buildConfig({
   collections: [Pages, Posts, Media, Categories, Users, Tags, Comments],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
-  plugins,
-  secret: process.env.PAYLOAD_SECRET,
-  sharp,
-  typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
-  jobs: {
+ plugins: [
+  ...plugins,
+  vercelBlobStorage({
+    enabled: true,
+    collections: {
+      media: true,
+    },
+    token: process.env.BLOB_READ_WRITE_TOKEN,
+    addRandomSuffix: true,
+  }),
+],
+secret: process.env.PAYLOAD_SECRET,
+sharp,
+typescript: {
+  outputFile: path.resolve(dirname, 'payload-types.ts'),
+},
+jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {
         // Allow logged in users to execute this endpoint (default)
