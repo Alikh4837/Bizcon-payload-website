@@ -223,7 +223,7 @@ export async function importWordPress({
     payload.logger.info(`  -> ${post.slug}`)
 
     const existing = await payload.find({
-      collection: 'posts',
+      collection: 'blog',
       where: { slug: { equals: post.slug } },
       limit: 1,
     })
@@ -260,7 +260,7 @@ export async function importWordPress({
     })
 
     await payload.create({
-      collection: 'posts',
+      collection: 'blog',
       data: {
         title: decodeEntities(post.title.rendered),
         slug: post.slug,

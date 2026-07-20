@@ -21,7 +21,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
             type: 'custom',
             appearance: 'default',
             label: 'All posts',
-            url: '/posts',
+            url: '/blog',
           },
         },
         {
@@ -567,7 +567,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
           },
         },
         populateBy: 'collection',
-        relationTo: 'posts',
+        relationTo: 'blog',
       },
       {
         blockName: 'CTA',
@@ -578,7 +578,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
               type: 'custom',
               appearance: 'default',
               label: 'All posts',
-              url: '/posts',
+              url: '/blog',
             },
           },
         ],
