@@ -3,18 +3,18 @@ import { revalidatePath } from 'next/cache'
 
 import { authenticated } from '../access/authenticated'
 import { anyone } from '../access/anyone'
-import type { Post } from '../payload-types'
+import type { Blog } from '../payload-types'
 
 const revalidateComment: CollectionAfterChangeHook = async ({ doc, req: { payload, context } }) => {
   if (!context.disableRevalidate && doc.status === 'approved') {
     try {
       const post = await payload.findByID({
         id: typeof doc.post === 'object' ? doc.post.id : doc.post,
-        collection: 'posts',
+        collection: 'blog',
       })
 
       if (post?.slug) {
-        revalidatePath(`/posts/${post.slug}`)
+        revalidatePath(`/blog/${post.slug}`)
       }
     } catch {
       // swallow error
@@ -47,7 +47,7 @@ export const Comments: CollectionConfig = {
     {
       name: 'post',
       type: 'relationship',
-      relationTo: 'posts',
+      relationTo: 'blog',
       required: true,
       index: true,
     },
