@@ -6,62 +6,36 @@ import './index.scss'
 
 const baseClass = 'before-dashboard'
 
+const quickLinks = [
+  { href: '/admin/collections/pages', label: 'Pages', desc: 'Edit Home, About, Services, Contact and every other page on bizconglobal.com.' },
+  { href: '/admin/collections/blog', label: 'Blog', desc: 'Write and publish blog posts. Changes preview live before you publish.' },
+  { href: '/admin/globals/header', label: 'Header / Navigation', desc: 'Control the menu links shown at the top of every page.' },
+  { href: '/admin/globals/footer', label: 'Footer', desc: 'Control the links and info shown at the bottom of every page.' },
+  { href: '/admin/collections/media', label: 'Media', desc: 'Upload and manage images used across the site.' },
+]
+
 const BeforeDashboard: React.FC = () => {
   return (
     <div className={baseClass}>
       <Banner className={`${baseClass}__banner`} type="success">
-        <h4>Welcome to your dashboard!</h4>
+        <h4>Welcome to the Bizcon Global content dashboard</h4>
       </Banner>
-      Here&apos;s what to do next:
-      <ul className={`${baseClass}__instructions`}>
-        <li>
+      <p>Pick where you want to make changes. Every edit shows a live preview of the real page before you publish.</p>
+      <div className={`${baseClass}__grid`}>
+        {quickLinks.map((item) => (
+          <a key={item.href} href={item.href} className={`${baseClass}__card`}>
+            <strong>{item.label}</strong>
+            <span>{item.desc}</span>
+          </a>
+        ))}
+      </div>
+      <details className={`${baseClass}__advanced`}>
+        <summary>Advanced: seed demo content</summary>
+        <p>
           <SeedButton />
-          {' with a few pages, posts, and projects to jump-start your new site, then '}
-          <a href="/" target="_blank">
-            visit your website
-          </a>
-          {' to see the results.'}
-        </li>
-        <li>
-          {'Modify your '}
-          <a
-            href="https://payloadcms.com/docs/configuration/collections"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            collections
-          </a>
-          {' and add more '}
-          <a
-            href="https://payloadcms.com/docs/fields/overview"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            fields
-          </a>
-          {' as needed. If you are new to Payload, we also recommend you check out the '}
-          <a
-            href="https://payloadcms.com/docs/getting-started/what-is-payload"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Getting Started
-          </a>
-          {' docs.'}
-        </li>
-        <li>
-          Commit and push your changes to the repository to trigger a redeployment of your project.
-        </li>
-      </ul>
-      {'Pro Tip: This block is a '}
-      <a
-        href="https://payloadcms.com/docs/custom-components/overview"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        custom component
-      </a>
-      , you can remove it at any time by updating your <strong>payload.config</strong>.
+          {' — only use this on a fresh/test site. It overwrites content with sample data.'}
+        </p>
+      </details>
     </div>
   )
 }
