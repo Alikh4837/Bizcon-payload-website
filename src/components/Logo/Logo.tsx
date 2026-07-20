@@ -5,10 +5,11 @@ interface Props {
   className?: string
   loading?: 'lazy' | 'eager'
   priority?: 'auto' | 'high' | 'low'
+  dark?: boolean // pass true when rendering on a dark background (e.g. frontend header)
 }
 
 export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
+  const { loading: loadingFromProps, priority: priorityFromProps, className, dark } = props
 
   const loading = loadingFromProps || 'lazy'
   const priority = priorityFromProps || 'low'
@@ -22,8 +23,8 @@ export const Logo = (props: Props) => {
       loading={loading}
       fetchPriority={priority}
       decoding="async"
-      className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
-      src="/bizcon-logo.svg"
+      className={clsx('max-w-[9.375rem] w-full h-[34px] object-contain', className)}
+      src={dark ? '/bizcon-logo-white.png' : '/bizcon-logo.png'}
     />
   )
 }

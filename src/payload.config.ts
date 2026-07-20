@@ -26,24 +26,25 @@ export default buildConfig({
     components: {
       beforeLogin: ['@/components/BeforeLogin'],
       beforeDashboard: ['@/components/BeforeDashboard'],
-
       graphics: {
         Logo: '@/components/Logo/Logo#Logo',
         Icon: '@/components/Logo/Icon#Icon',
       },
     },
-
     meta: {
       titleSuffix: ' — Bizcon Global CMS',
       description: 'Content management for bizconglobal.com',
+      icons: [
+        {
+          type: 'image/png',
+          url: '/favicon.png',
+        },
+      ],
     },
-
     importMap: {
       baseDir: path.resolve(dirname),
     },
-
     user: Users.slug,
-
     livePreview: {
       breakpoints: [
         {
@@ -67,30 +68,15 @@ export default buildConfig({
       ],
     },
   },
-
-  // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-
-  collections: [
-    Pages,
-    Blog,
-    Media,
-    Categories,
-    Users,
-    Tags,
-    Comments,
-  ],
-
+  collections: [Pages, Blog, Media, Categories, Users, Tags, Comments],
   cors: [getServerSideURL()].filter(Boolean),
-
   globals: [Header, Footer],
-
   plugins: [
     ...plugins,
     s3Storage({
@@ -109,15 +95,11 @@ export default buildConfig({
       },
     }),
   ],
-
   secret: process.env.PAYLOAD_SECRET,
-
   sharp,
-
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-
   jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {

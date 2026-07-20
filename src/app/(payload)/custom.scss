@@ -1,17 +1,15 @@
+// app/(payload)/custom.scss
 :root {
-  --theme-success-500: #1a7f5a;
-  --theme-elevation-800: #10233f; // swap for your real brand navy/primary
+  --theme-elevation-800: #10233f; // navy - swap once you confirm exact hex
+  --theme-success-500: #c9a227;   // gold accent
 }
 
-// Softer, more modern panel look
 .template-default .nav {
   border-radius: 0 12px 12px 0;
 }
 
-.dashboard {
-  h1 {
-    font-weight: 600;
-  }
+.dashboard h1 {
+  font-weight: 600;
 }
 
 .btn--style-primary {
