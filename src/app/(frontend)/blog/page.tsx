@@ -30,7 +30,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   }
 
   const posts = await payload.find({
-    collection: 'posts',
+    collection: 'blog',
     depth: 1,
     limit: 12,
     overrideAccess: false,

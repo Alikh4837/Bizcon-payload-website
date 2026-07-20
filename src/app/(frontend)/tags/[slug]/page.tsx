@@ -27,7 +27,7 @@ export default async function TagPage({ params: paramsPromise }: Args) {
   if (!tag) notFound()
 
   const posts = await payload.find({
-    collection: 'posts',
+    collection: 'blog',
     depth: 1,
     limit: 12,
     overrideAccess: false,

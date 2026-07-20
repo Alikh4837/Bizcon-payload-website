@@ -8,7 +8,7 @@ import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
 
-import type { Post } from '@/payload-types'
+import type { Blog } from '@/payload-types'
 
 import { PostContentHeader } from '@/components/PostContentHeader'
 import { PostNavigation } from '@/components/PostNavigation'
@@ -22,7 +22,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const posts = await payload.find({
-    collection: 'posts',
+    collection: 'blog',
     draft: false,
     limit: 1000,
     overrideAccess: false,
@@ -41,11 +41,11 @@ type Args = {
   }>
 }
 
-export default async function Post({ params: paramsPromise }: Args) {
+export default async function BlogPostPage({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
   const decodedSlug = decodeURIComponent(slug)
-  const url = '/posts/' + decodedSlug
+  const url = '/blog/' + decodedSlug
   const post = await queryPostBySlug({ slug: decodedSlug })
 
   if (!post) return <PayloadRedirects url={url} />
@@ -100,7 +100,7 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'posts',
+    collection: 'blog',
     draft,
     limit: 1,
     overrideAccess: draft,
