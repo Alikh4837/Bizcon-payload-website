@@ -1,12 +1,12 @@
 import React from 'react'
 import { formatDateTime } from 'src/utilities/formatDateTime'
-import type { Post } from '@/payload-types'
+import type { Blog } from '@/payload-types'
 import { formatAuthors } from '@/utilities/formatAuthors'
 // import { Media } from '@/components/Media'
 import { ImageWithFallback } from '@/components/Media/ImageWithFallback'
 import { getCategoryAccent } from '@/utilities/categoryAccent'
 
-export const PostContentHeader: React.FC<{ post: Post }> = ({ post }) => {
+export const PostContentHeader: React.FC<{ post: Blog }> = ({ post }) => {
   const { categories, heroImage, populatedAuthors, publishedAt, title } = post
 
   const hasAuthors =

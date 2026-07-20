@@ -20,7 +20,7 @@ export const Pagination: React.FC<{
     <div className={cn('flex items-center gap-2 my-12', className)}>
       {hasExtraPrevPages && (
         <>
-          <Link href={`/posts/page/1`} className={circleBase}>
+          <Link href={`/blog/page/1`} className={circleBase}>
             1
           </Link>
           <span className="px-1 text-muted-foreground">…</span>
@@ -28,7 +28,7 @@ export const Pagination: React.FC<{
       )}
 
       {hasPrevPage && (
-        <Link href={`/posts/page/${page - 1}`} className={circleBase}>
+        <Link href={`/blog/page/${page - 1}`} className={circleBase}>
           {page - 1}
         </Link>
       )}
@@ -41,7 +41,7 @@ export const Pagination: React.FC<{
       </span>
 
       {hasNextPage && (
-        <Link href={`/posts/page/${page + 1}`} className={circleBase}>
+        <Link href={`/blog/page/${page + 1}`} className={circleBase}>
           {page + 1}
         </Link>
       )}
@@ -49,14 +49,14 @@ export const Pagination: React.FC<{
       {hasExtraNextPages && (
         <>
           <span className="px-1 text-muted-foreground">…</span>
-          <Link href={`/posts/page/${totalPages}`} className={circleBase}>
+          <Link href={`/blog/page/${totalPages}`} className={circleBase}>
             {totalPages}
           </Link>
         </>
       )}
 
       {hasNextPage && (
-        <Link href={`/posts/page/${page + 1}`} className={circleBase} aria-label="Next page">
+        <Link href={`/blog/page/${page + 1}`} className={circleBase} aria-label="Next page">
           →
         </Link>
       )}

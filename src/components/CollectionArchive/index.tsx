@@ -21,13 +21,13 @@ export const CollectionArchive: React.FC<Props> = (props) => {
   return (
     <div className="flex flex-col gap-10">
       {featuredPost && typeof featuredPost === 'object' && (
-        <Card doc={featuredPost} relationTo="posts" featured />
+        <Card doc={featuredPost} relationTo="blog" featured />
       )}
 
       <div className={cn('grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6')}>
         {gridPosts?.map((result, index) => {
           if (typeof result === 'object' && result !== null) {
-            return <Card key={index} doc={result} relationTo="posts" />
+            return <Card key={index} doc={result} relationTo="blog" />
           }
           return null
         })}

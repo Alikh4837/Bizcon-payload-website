@@ -2,24 +2,24 @@ import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Post } from '@/payload-types'
+import type { Blog } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { getCategoryAccent } from '@/utilities/categoryAccent'
 import { formatDateTime } from '@/utilities/formatDateTime'
 
 export type CardPostData = Pick<
-  Post,
+  Blog,
   'slug' | 'categories' | 'meta' | 'title' | 'heroImage' | 'publishedAt'
 >
 
 export const Card: React.FC<{
   className?: string
   doc?: CardPostData
-  relationTo?: 'posts'
+  relationTo?: 'blog'
   featured?: boolean
   title?: string
 }> = (props) => {
-  const { className, doc, relationTo = 'posts', featured = false, title: titleFromProps } = props
+  const { className, doc, relationTo = 'blog', featured = false, title: titleFromProps } = props
   const { slug, title, meta, heroImage, publishedAt, categories } = doc || {}
   const titleToUse = titleFromProps || title
   const href = `/${relationTo}/${slug}`

@@ -11,7 +11,7 @@ export const CategoryFilter: React.FC<{
   return (
     <div className="flex flex-wrap gap-2">
       <Link
-        href="/posts"
+        href="/blog"
         className={cn(
           'rounded-full border px-3 py-1.5 text-xs font-medium transition-colors',
           !activeCategory
@@ -29,7 +29,7 @@ export const CategoryFilter: React.FC<{
         return (
           <Link
             key={cat.slug}
-            href={`/posts?category=${cat.slug}`}
+            href={`/blog?category=${cat.slug}`}
             className={cn(
               'rounded-full border px-3 py-1.5 text-xs font-medium transition-colors',
               isActive ? 'text-background' : 'border-brand-line text-foreground hover:border-brand-ink',

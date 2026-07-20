@@ -13,7 +13,7 @@ export const PostNavigation: React.FC<{
 
   const [prev, next] = await Promise.all([
     payload.find({
-      collection: 'posts',
+      collection: 'blog',
       limit: 1,
       overrideAccess: false,
       sort: '-publishedAt',
@@ -23,7 +23,7 @@ export const PostNavigation: React.FC<{
       select: { title: true, slug: true },
     }),
     payload.find({
-      collection: 'posts',
+      collection: 'blog',
       limit: 1,
       overrideAccess: false,
       sort: 'publishedAt',
@@ -43,7 +43,7 @@ export const PostNavigation: React.FC<{
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12 pt-8 border-t border-brand-line">
       {prevPost ? (
         <Link
-          href={`/posts/${prevPost.slug}`}
+          href={`/blog/${prevPost.slug}`}
           className="group rounded-lg border border-brand-line p-5 hover:border-brand-ink transition-colors"
         >
           <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
@@ -59,7 +59,7 @@ export const PostNavigation: React.FC<{
 
       {nextPost && (
         <Link
-          href={`/posts/${nextPost.slug}`}
+          href={`/blog/${nextPost.slug}`}
           className="group rounded-lg border border-brand-line p-5 text-right hover:border-brand-ink transition-colors"
         >
           <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
