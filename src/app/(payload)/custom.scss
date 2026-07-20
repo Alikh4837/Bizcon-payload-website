@@ -1,17 +1,16 @@
 // app/(payload)/custom.scss
-:root {
-  --theme-elevation-800: #10233f; // navy - swap once you confirm exact hex
-  --theme-success-500: #c9a227;   // gold accent
-}
 
+// Rounded, slightly tighter nav — cosmetic only, doesn't touch color tokens
 .template-default .nav {
   border-radius: 0 12px 12px 0;
 }
 
-.dashboard h1 {
-  font-weight: 600;
-}
-
 .btn--style-primary {
   border-radius: 6px;
+}
+
+// Accent color scoped ONLY to our own custom dashboard component below —
+// never touches Payload's built-in components or their contrast
+.bizcon-dashboard {
+  --accent: #c9a227; // gold — swap once you confirm exact brand hex
 }

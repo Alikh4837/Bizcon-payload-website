@@ -1,38 +1,47 @@
-// components/BeforeDashboard/index.scss
-.before-dashboard {
+.bizcon-dashboard {
   margin-bottom: 2rem;
 
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  &__card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    padding: 1rem;
-    border: 1px solid var(--theme-elevation-150);
+  &__banner {
+    background: #10233f;
+    border-left: 4px solid var(--accent, #c9a227);
     border-radius: 8px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.15s ease, transform 0.15s ease;
+    padding: 1rem 1.25rem;
 
-    &:hover {
-      border-color: var(--theme-success-500);
-      transform: translateY(-2px);
+    h4 {
+      color: #ffffff;
+      margin: 0 0 0.25rem 0;
     }
 
-    span {
-      font-size: 0.85rem;
-      opacity: 0.75;
+    p {
+      color: #d7dee8; // light gray, not blue — readable on the navy background
+      margin: 0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  &__action {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    background: var(--accent, #c9a227);
+    color: #10233f; // dark text on gold — high contrast, not default anchor blue
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.85;
     }
   }
 
   &__advanced {
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     font-size: 0.9rem;
+    color: var(--theme-text);
   }
 }
