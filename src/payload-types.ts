@@ -161,6 +161,9 @@ export interface UserAuthOperations {
  */
 export interface Page {
   id: number;
+  /**
+   * Internal + browser tab title for this page. Not always shown visually — check the Hero tab for the on-page heading.
+   */
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
@@ -205,7 +208,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ContactBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -248,6 +251,9 @@ export interface Blog {
     [k: string]: unknown;
   };
   relatedPosts?: (number | Blog)[] | null;
+  /**
+   * Used for filtering/grouping on the blog listing page.
+   */
   categories?: (number | Category)[] | null;
   tags?: (number | Tag)[] | null;
   meta?: {
@@ -794,6 +800,47 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactBlock".
+ */
+export interface ContactBlock {
+  /**
+   * Small label above the heading, e.g. "GET IN TOUCH"
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * A short paragraph shown under the heading.
+   */
+  description?: string | null;
+  /**
+   * Office address, phone numbers, email, hours, and social links.
+   */
+  contactDetails?:
+    | {
+        icon: 'mapPin' | 'phone' | 'mail' | 'clock' | 'linkedin' | 'facebook' | 'instagram' | 'twitter' | 'globe';
+        label: string;
+        value: string;
+        /**
+         * Optional. Use tel:+92... for phone, mailto:for email, or a full https:// URL for social links.
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional. Paste a Google Maps "Embed a map" src URL here to show a map under your contact details.
+   */
+  mapEmbedUrl?: string | null;
+  /**
+   * Select the form to display (create/edit forms under the Forms collection).
+   */
+  form: number | Form;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1125,6 +1172,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        contactBlock?: T | ContactBlockSelect<T>;
       };
   meta?:
     | T
@@ -1221,6 +1269,28 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactBlock_select".
+ */
+export interface ContactBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  contactDetails?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        value?: T;
+        link?: T;
+        id?: T;
+      };
+  mapEmbedUrl?: T;
+  form?: T;
   id?: T;
   blockName?: T;
 }
@@ -1698,6 +1768,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  /**
+   * These links appear left-to-right in the site header, on every page. Drag to reorder.
+   */
   navItems?:
     | {
         link: {
@@ -1727,6 +1800,9 @@ export interface Header {
  */
 export interface Footer {
   id: number;
+  /**
+   * These links appear in the site footer, on every page. Drag to reorder.
+   */
   navItems?:
     | {
         link: {
