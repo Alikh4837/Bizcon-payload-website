@@ -59,6 +59,9 @@ export const Pages: CollectionConfig<'pages'> = {
       name: 'title',
       type: 'text',
       required: true,
+      admin: {
+    description: 'Internal + browser tab title for this page. Not always shown visually — check the Hero tab for the on-page heading.',
+  },
     },
     {
       type: 'tabs',

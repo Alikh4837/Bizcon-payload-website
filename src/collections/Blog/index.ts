@@ -70,6 +70,7 @@ export const Blog: CollectionConfig<'blog'> = {
       name: 'title',
       type: 'text',
       required: true,
+
     },
     {
       type: 'tabs',
@@ -125,6 +126,7 @@ export const Blog: CollectionConfig<'blog'> = {
               type: 'relationship',
               admin: {
                 position: 'sidebar',
+                description: 'Used for filtering/grouping on the blog listing page.',
               },
               hasMany: true,
               relationTo: 'categories',
