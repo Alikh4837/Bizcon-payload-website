@@ -1,24 +1,38 @@
-@import '@payloadcms/ui/scss';
+// components/BeforeDashboard/index.scss
+.before-dashboard {
+  margin-bottom: 2rem;
 
-.dashboard .before-dashboard {
-  margin-bottom: base(1.5);
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
 
-  &__banner {
-    & h4 {
-      margin: 0;
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem;
+    border: 1px solid var(--theme-elevation-150);
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+
+    &:hover {
+      border-color: var(--theme-success-500);
+      transform: translateY(-2px);
+    }
+
+    span {
+      font-size: 0.85rem;
+      opacity: 0.75;
     }
   }
 
-  &__instructions {
-    list-style: decimal;
-    margin-bottom: base(0.5);
-
-    & li {
-      width: 100%;
-    }
-  }
-
-  & a:hover {
-    opacity: 0.85;
+  &__advanced {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
   }
 }
