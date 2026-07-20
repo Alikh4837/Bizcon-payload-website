@@ -24,7 +24,7 @@ const generateURL: GenerateURL<Blog | Page> = ({ doc }) => {
 
 export const plugins: Plugin[] = [
   redirectsPlugin({
-    collections: ['pages', 'blogs'],
+    collections: ['pages', 'blog'],
     overrides: {
       // @ts-expect-error - This is a valid override, mapped fields don't resolve to the same type
       fields: ({ defaultFields }) => {
@@ -80,7 +80,7 @@ export const plugins: Plugin[] = [
     },
   }),
   searchPlugin({
-    collections: ['blogs'],
+    collections: ['blog'],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
       fields: ({ defaultFields }) => {

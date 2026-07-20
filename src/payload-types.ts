@@ -68,7 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     pages: Page;
-    posts: Post;
+    blog: Blog;
     media: Media;
     categories: Category;
     users: User;
@@ -92,7 +92,7 @@ export interface Config {
   };
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
+    blog: BlogSelect<false> | BlogSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -190,8 +190,8 @@ export interface Page {
                   value: number | Page;
                 } | null)
               | ({
-                  relationTo: 'posts';
-                  value: number | Post;
+                  relationTo: 'blog';
+                  value: number | Blog;
                 } | null);
             url?: string | null;
             label: string;
@@ -226,9 +226,9 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "blog".
  */
-export interface Post {
+export interface Blog {
   id: number;
   title: string;
   heroImage?: (number | null) | Media;
@@ -247,7 +247,7 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  relatedPosts?: (number | Post)[] | null;
+  relatedPosts?: (number | Blog)[] | null;
   categories?: (number | Category)[] | null;
   tags?: (number | Tag)[] | null;
   meta?: {
@@ -490,8 +490,8 @@ export interface CallToActionBlock {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null);
           url?: string | null;
           label: string;
@@ -540,8 +540,8 @@ export interface ContentBlock {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null);
           url?: string | null;
           label: string;
@@ -588,13 +588,13 @@ export interface ArchiveBlock {
     [k: string]: unknown;
   } | null;
   populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
+  relationTo?: 'blog' | null;
   categories?: (number | Category)[] | null;
   limit?: number | null;
   selectedDocs?:
     | {
-        relationTo: 'posts';
-        value: number | Post;
+        relationTo: 'blog';
+        value: number | Blog;
       }[]
     | null;
   id?: string | null;
@@ -798,7 +798,7 @@ export interface Form {
  */
 export interface Comment {
   id: number;
-  post: number | Post;
+  post: number | Blog;
   name: string;
   /**
    * Not displayed publicly
@@ -827,8 +827,8 @@ export interface Redirect {
           value: number | Page;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: number | Post;
+          relationTo: 'blog';
+          value: number | Blog;
         } | null);
     url?: string | null;
   };
@@ -863,8 +863,8 @@ export interface Search {
   title?: string | null;
   priority?: number | null;
   doc: {
-    relationTo: 'posts';
-    value: number | Post;
+    relationTo: 'blog';
+    value: number | Blog;
   };
   slug?: string | null;
   meta?: {
@@ -1004,8 +1004,8 @@ export interface PayloadLockedDocument {
         value: number | Page;
       } | null)
     | ({
-        relationTo: 'posts';
-        value: number | Post;
+        relationTo: 'blog';
+        value: number | Blog;
       } | null)
     | ({
         relationTo: 'media';
@@ -1226,9 +1226,9 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
+ * via the `definition` "blog_select".
  */
-export interface PostsSelect<T extends boolean = true> {
+export interface BlogSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
@@ -1709,8 +1709,8 @@ export interface Header {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null);
           url?: string | null;
           label: string;
@@ -1738,8 +1738,8 @@ export interface Footer {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null);
           url?: string | null;
           label: string;
@@ -1820,8 +1820,8 @@ export interface TaskSchedulePublish {
           value: number | Page;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: number | Post;
+          relationTo: 'blog';
+          value: number | Blog;
         } | null);
     global?: string | null;
     user?: (number | null) | User;
