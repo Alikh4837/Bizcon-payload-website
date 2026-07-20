@@ -97,14 +97,14 @@ async function cleanup() {
 
   for (const mediaId of badMediaIds) {
     const affectedPosts = await payload.find({
-      collection: 'posts',
+      collection: 'blog',
       where: { heroImage: { equals: mediaId } },
       limit: 100,
     })
 
     for (const post of affectedPosts.docs) {
       await payload.update({
-        collection: 'posts',
+        collection: 'blog',
         id: post.id,
         data: { heroImage: null },
         context: { disableRevalidate: true },

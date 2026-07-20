@@ -391,7 +391,7 @@ async function migrate() {
     try {
       // Check for an existing post with this slug (idempotent re-runs)
       const existing = await payload.find({
-        collection: 'posts',
+        collection: 'blog',
         where: { slug: { equals: wpPost.slug } },
         limit: 1,
       })
@@ -414,7 +414,7 @@ async function migrate() {
 
             if (uploaded) {
               await payload.update({
-                collection: 'posts',
+                collection: 'blog',
                 id: existingPost.id,
                 data: { heroImage: uploaded.id },
                 context: { disableRevalidate: true },
@@ -467,7 +467,7 @@ async function migrate() {
       const authorName = wpPost._embedded?.author?.[0]?.name
 
       await payload.create({
-        collection: 'posts',
+        collection: 'blog',
         draft: false,
         context: { disableRevalidate: true },
         data: {
