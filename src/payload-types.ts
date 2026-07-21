@@ -208,7 +208,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ContactBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ContactBlock | TeamBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -841,6 +841,47 @@ export interface ContactBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamBlock".
+ */
+export interface TeamBlock {
+  /**
+   * Small label above the heading, e.g. "MEET THE TEAM"
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * A short paragraph shown under the heading.
+   */
+  description?: string | null;
+  /**
+   * Add one entry per team member. Group determines which section they appear in.
+   */
+  members?:
+    | {
+        photo?: (number | null) | Media;
+        name: string;
+        /**
+         * e.g. "Partner" or "Manager"
+         */
+        role: string;
+        group: 'partners' | 'managers';
+        /**
+         * Qualifications / experience line shown under the role.
+         */
+        credentials?: string | null;
+        /**
+         * Optional. Full LinkedIn profile URL.
+         */
+        linkedin?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'teamBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1173,6 +1214,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         contactBlock?: T | ContactBlockSelect<T>;
+        teamBlock?: T | TeamBlockSelect<T>;
       };
   meta?:
     | T
@@ -1291,6 +1333,28 @@ export interface ContactBlockSelect<T extends boolean = true> {
       };
   mapEmbedUrl?: T;
   form?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamBlock_select".
+ */
+export interface TeamBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  members?:
+    | T
+    | {
+        photo?: T;
+        name?: T;
+        role?: T;
+        group?: T;
+        credentials?: T;
+        linkedin?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
