@@ -208,7 +208,18 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ContactBlock | TeamBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | ContactBlock
+    | TeamBlock
+    | FeatureGridBlock
+    | TestimonialsBlock
+    | LogoStripBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -882,6 +893,81 @@ export interface TeamBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureGridBlock".
+ */
+export interface FeatureGridBlock {
+  /**
+   * Small label above the heading, e.g. "what we do"
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Show 01 / 02 / 03 style numbers instead of no numbering (e.g. for a "Why us" list).
+   */
+  showNumbers?: boolean | null;
+  items?:
+    | {
+        heading: string;
+        description?: string | null;
+        /**
+         * Optional. Relative (/services/x) or full URL.
+         */
+        link?: string | null;
+        linkLabel?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureGridBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Placeholder testimonials for now — swap in real client quotes when available.
+   */
+  items?:
+    | {
+        quote: string;
+        name: string;
+        role?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonialsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogoStripBlock".
+ */
+export interface LogoStripBlock {
+  heading?: string | null;
+  /**
+   * Placeholder logos for now — swap in real partner/client logos when available.
+   */
+  logos?:
+    | {
+        logo: number | Media;
+        /**
+         * Optional. Full URL to the partner/brand site.
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'logoStripBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1215,6 +1301,9 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         contactBlock?: T | ContactBlockSelect<T>;
         teamBlock?: T | TeamBlockSelect<T>;
+        featureGridBlock?: T | FeatureGridBlockSelect<T>;
+        testimonialsBlock?: T | TestimonialsBlockSelect<T>;
+        logoStripBlock?: T | LogoStripBlockSelect<T>;
       };
   meta?:
     | T
@@ -1353,6 +1442,60 @@ export interface TeamBlockSelect<T extends boolean = true> {
         group?: T;
         credentials?: T;
         linkedin?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureGridBlock_select".
+ */
+export interface FeatureGridBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  showNumbers?: T;
+  items?:
+    | T
+    | {
+        heading?: T;
+        description?: T;
+        link?: T;
+        linkLabel?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  items?:
+    | T
+    | {
+        quote?: T;
+        name?: T;
+        role?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogoStripBlock_select".
+ */
+export interface LogoStripBlockSelect<T extends boolean = true> {
+  heading?: T;
+  logos?:
+    | T
+    | {
+        logo?: T;
+        link?: T;
         id?: T;
       };
   id?: T;

@@ -6,9 +6,12 @@ import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { ContactBlock } from '../../blocks/ContactBlock/Config'
 import { Content } from '../../blocks/Content/config'
+import { FeatureGridBlock } from '../../blocks/FeatureGridBlock/Config'
 import { FormBlock } from '../../blocks/Form/config'
+import { LogoStripBlock } from '../../blocks/LogoStripBlock/Config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { TeamBlock } from '../../blocks/TeamBlock/Config'
+import { TestimonialsBlock } from '../../blocks/TestimonialsBlock/Config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -77,7 +80,18 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, ContactBlock, TeamBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                ContactBlock,
+                TeamBlock,
+                FeatureGridBlock,
+                TestimonialsBlock,
+                LogoStripBlock,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
