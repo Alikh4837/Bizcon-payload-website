@@ -35,6 +35,14 @@ export const FeatureGridBlock: Block = {
       },
       fields: [
         {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description: 'Optional. Shown above the heading if provided.',
+          },
+        },
+        {
           name: 'heading',
           type: 'text',
           required: true,

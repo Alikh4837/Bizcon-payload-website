@@ -909,6 +909,10 @@ export interface FeatureGridBlock {
   showNumbers?: boolean | null;
   items?:
     | {
+        /**
+         * Optional. Shown above the heading if provided.
+         */
+        image?: (number | null) | Media;
         heading: string;
         description?: string | null;
         /**
@@ -1544,6 +1548,7 @@ export interface FeatureGridBlockSelect<T extends boolean = true> {
   items?:
     | T
     | {
+        image?: T;
         heading?: T;
         description?: T;
         link?: T;
