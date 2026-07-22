@@ -12,6 +12,8 @@ import { LogoStripBlock } from '../../blocks/LogoStripBlock/Config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { TeamBlock } from '../../blocks/TeamBlock/Config'
 import { TestimonialsBlock } from '../../blocks/TestimonialsBlock/Config'
+import { TrendingBlock } from '../../blocks/TrendingBlock/Config'
+import { WhereWeServeBlock } from '../../blocks/WhereWeServe/Config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -91,6 +93,8 @@ export const Pages: CollectionConfig<'pages'> = {
                 FeatureGridBlock,
                 TestimonialsBlock,
                 LogoStripBlock,
+                TrendingBlock,
+                WhereWeServeBlock,
               ],
               required: true,
               admin: {

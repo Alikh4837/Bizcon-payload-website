@@ -219,6 +219,8 @@ export interface Page {
     | FeatureGridBlock
     | TestimonialsBlock
     | LogoStripBlock
+    | TrendingBlock
+    | WhereWeServeBlock
   )[];
   meta?: {
     title?: string | null;
@@ -968,6 +970,88 @@ export interface LogoStripBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrendingBlock".
+ */
+export interface TrendingBlock {
+  /**
+   * Small label above the heading, e.g. "STAY INFORMED"
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Optional short paragraph shown under the heading.
+   */
+  description?: string | null;
+  /**
+   * Trending news, insights and articles. Numbered automatically in the order listed below.
+   */
+  items?:
+    | {
+        title: string;
+        /**
+         * Optional short tag, e.g. "Tax" or "Global Markets"
+         */
+        category?: string | null;
+        /**
+         * Relative (/blog/x) or full URL to the article.
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'trendingBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhereWeServeBlock".
+ */
+export interface WhereWeServeBlock {
+  /**
+   * Small label above the heading, e.g. "GLOBAL FOOTPRINT"
+   */
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  /**
+   * Small counters shown above the map, e.g. "3 / Countries Served".
+   */
+  stats?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * One entry per country/region served.
+   */
+  regions?:
+    | {
+        country: string;
+        /**
+         * Paste a flag emoji (e.g. 🇵🇰) — used as a lightweight visual marker.
+         */
+        flag?: string | null;
+        /**
+         * City or region within the country, e.g. "Lahore"
+         */
+        city?: string | null;
+        description?: string | null;
+        /**
+         * Optional. Link to a country-specific page.
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'whereWeServeBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1304,6 +1388,8 @@ export interface PagesSelect<T extends boolean = true> {
         featureGridBlock?: T | FeatureGridBlockSelect<T>;
         testimonialsBlock?: T | TestimonialsBlockSelect<T>;
         logoStripBlock?: T | LogoStripBlockSelect<T>;
+        trendingBlock?: T | TrendingBlockSelect<T>;
+        whereWeServeBlock?: T | WhereWeServeBlockSelect<T>;
       };
   meta?:
     | T
@@ -1495,6 +1581,53 @@ export interface LogoStripBlockSelect<T extends boolean = true> {
     | T
     | {
         logo?: T;
+        link?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrendingBlock_select".
+ */
+export interface TrendingBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        category?: T;
+        link?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhereWeServeBlock_select".
+ */
+export interface WhereWeServeBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  regions?:
+    | T
+    | {
+        country?: T;
+        flag?: T;
+        city?: T;
+        description?: T;
         link?: T;
         id?: T;
       };

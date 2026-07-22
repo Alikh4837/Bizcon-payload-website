@@ -12,6 +12,8 @@ import { TeamBlock } from '@/blocks/TeamBlock/Component'
 import { FeatureGridBlock } from '@/blocks/FeatureGridBlock/Component'
 import { TestimonialsBlock } from '@/blocks/TestimonialsBlock/Component'
 import { LogoStripBlock } from '@/blocks/LogoStripBlock/Component'
+import { TrendingBlock } from '@/blocks/TrendingBlock/Component'
+import { WhereWeServeBlock } from '@/blocks/WhereWeServe/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -24,6 +26,8 @@ const blockComponents = {
   featureGridBlock: FeatureGridBlock,
   testimonialsBlock: TestimonialsBlock,
   logoStripBlock: LogoStripBlock,
+  trendingBlock: TrendingBlock,
+  whereWeServeBlock: WhereWeServeBlock,
 }
 
 export const RenderBlocks: React.FC<{
