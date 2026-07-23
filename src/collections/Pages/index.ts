@@ -2,6 +2,8 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { AboutIntroBlock } from '../../blocks/AboutIntroBlock/Config'
+import { MissionVisionBlock } from '../../blocks/MissionVisionBlock/Config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { ContactBlock } from '../../blocks/ContactBlock/Config'
@@ -84,6 +86,8 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
+                AboutIntroBlock,
+                MissionVisionBlock,
                 CallToAction,
                 Content,
                 MediaBlock,

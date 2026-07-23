@@ -220,6 +220,8 @@ export interface Page {
       | null;
   };
   layout: (
+    | AboutIntroBlock
+    | MissionVisionBlock
     | CallToActionBlock
     | ContentBlock
     | MediaBlock
@@ -489,6 +491,80 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutIntroBlock".
+ */
+export interface AboutIntroBlock {
+  /**
+   * Small label above the heading, e.g. "About company"
+   */
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  /**
+   * Larger image in the collage.
+   */
+  primaryImage?: (number | null) | Media;
+  /**
+   * Smaller overlapping image, shown offset over the larger one.
+   */
+  secondaryImage?: (number | null) | Media;
+  /**
+   * Up to 4 short feature callouts, e.g. "Trusted company", "Award winning".
+   */
+  features?:
+    | {
+        /**
+         * Optional small icon.
+         */
+        icon?: (number | null) | Media;
+        heading: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * e.g. "Let's make something great work together."
+   */
+  ctaText?: string | null;
+  ctaLinkLabel?: string | null;
+  ctaLink?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutIntroBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MissionVisionBlock".
+ */
+export interface MissionVisionBlock {
+  /**
+   * Fallback image shown beside the text. Overridden per-slide if a slide has its own image.
+   */
+  image?: (number | null) | Media;
+  /**
+   * One slide per entry, e.g. "Company mission", "Company vision", "Company value". Visitors step through them with prev/next arrows.
+   */
+  slides?:
+    | {
+        /**
+         * e.g. "Company mission"
+         */
+        label: string;
+        heading: string;
+        description?: string | null;
+        /**
+         * Optional. Overrides the block-level fallback image for this slide only.
+         */
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'missionVisionBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1461,6 +1537,8 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        aboutIntroBlock?: T | AboutIntroBlockSelect<T>;
+        missionVisionBlock?: T | MissionVisionBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -1488,6 +1566,48 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutIntroBlock_select".
+ */
+export interface AboutIntroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  primaryImage?: T;
+  secondaryImage?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        heading?: T;
+        description?: T;
+        id?: T;
+      };
+  ctaText?: T;
+  ctaLinkLabel?: T;
+  ctaLink?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MissionVisionBlock_select".
+ */
+export interface MissionVisionBlockSelect<T extends boolean = true> {
+  image?: T;
+  slides?:
+    | T
+    | {
+        label?: T;
+        heading?: T;
+        description?: T;
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

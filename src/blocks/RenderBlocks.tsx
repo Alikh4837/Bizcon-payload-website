@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
 
+import { AboutIntroBlock } from '@/blocks/AboutIntroBlock/Component'
+import { MissionVisionBlock } from '@/blocks/MissionVisionBlock/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContactBlock } from '@/blocks/ContactBlock/Component'
@@ -17,6 +19,8 @@ import { TrendingBlock } from '@/blocks/TrendingBlock/Component'
 import { WhereWeServeBlock } from '@/blocks/WhereWeServe/Component'
 
 const blockComponents = {
+  aboutIntroBlock: AboutIntroBlock,
+  missionVisionBlock: MissionVisionBlock,
   archive: ArchiveBlock,
   contactBlock: ContactBlock,
   content: ContentBlock,
