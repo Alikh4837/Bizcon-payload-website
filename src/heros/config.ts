@@ -51,6 +51,9 @@ export const hero: Field = {
           ]
         },
       }),
+      admin: {
+        condition: (_, { type } = {}) => type !== 'highImpact',
+      },
       label: false,
     },
     linkGroup({
@@ -70,10 +73,11 @@ export const hero: Field = {
     {
       name: 'galleryImages',
       type: 'array',
-      label: 'Slider Images',
+      label: 'Slider Slides',
       admin: {
         condition: (_, { type } = {}) => type === 'highImpact',
-        description: 'Add the images for the hero slider. They auto-advance and can also be navigated with the prev/next buttons.',
+        description:
+          'Each slide has its own image, heading, and description — they change together as the slider advances.',
       },
       minRows: 1,
       maxRows: 6,
@@ -83,6 +87,15 @@ export const hero: Field = {
           type: 'upload',
           relationTo: 'media',
           required: true,
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'textarea',
         },
       ],
     },

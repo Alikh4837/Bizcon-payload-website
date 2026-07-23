@@ -208,11 +208,13 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
     /**
-     * Up to 4 images shown as a floating photo collage next to the heading.
+     * Each slide has its own image, heading, and description — they change together as the slider advances.
      */
     galleryImages?:
       | {
           image: number | Media;
+          heading: string;
+          description?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -1391,6 +1393,8 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
+              heading?: T;
+              description?: T;
               id?: T;
             };
       };

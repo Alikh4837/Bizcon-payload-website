@@ -6,6 +6,7 @@ import * as migration_20260722_145814_add_trending_and_where_we_serve_blocks fro
 import * as migration_20260722_163716_add_feature_grid_image from './20260722_163716_add_feature_grid_image';
 import * as migration_20260723_072543_add_header_cta_button from './20260723_072543_add_header_cta_button';
 import * as migration_20260723_075005_add_hero_gallery_images from './20260723_075005_add_hero_gallery_images';
+import * as migration_20260723_085313_add_hero_slider_images from './20260723_085313_add_hero_slider_images';
 
 export const migrations = [
   {
@@ -46,6 +47,11 @@ export const migrations = [
   {
     up: migration_20260723_075005_add_hero_gallery_images.up,
     down: migration_20260723_075005_add_hero_gallery_images.down,
-    name: '20260723_075005_add_hero_gallery_images'
+    name: '20260723_075005_add_hero_gallery_images',
+  },
+  {
+    up: migration_20260723_085313_add_hero_slider_images.up,
+    down: migration_20260723_085313_add_hero_slider_images.down,
+    name: '20260723_085313_add_hero_slider_images'
   },
 ];

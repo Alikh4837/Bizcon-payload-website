@@ -7,17 +7,17 @@ import type { Page } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import RichText from '@/components/RichText'
 
 const AUTO_ADVANCE_MS = 5000
 
-export const HighImpactHero: React.FC<Page['hero']> = ({ galleryImages, links, richText }) => {
+export const HighImpactHero: React.FC<Page['hero']> = ({ galleryImages, links }) => {
   const { setHeaderTheme } = useHeaderTheme()
   const [activeIndex, setActiveIndex] = useState(0)
 
   const slides = (galleryImages || []).filter(
     (item) => item.image && typeof item.image === 'object',
   )
+  const activeSlide = slides[activeIndex]
 
   useEffect(() => {
     setHeaderTheme('dark')
@@ -39,14 +39,21 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ galleryImages, links, r
 
   return (
     <div
-      className="relative -mt-[10.4rem] min-h-[80vh] flex items-center justify-center text-white overflow-hidden"
+      className="relative min-h-[80vh] flex items-center justify-center text-white overflow-hidden"
       data-theme="dark"
     >
       <div className="container mb-8 z-10 relative flex items-center justify-center">
-        <div className="max-w-[36.5rem] md:text-center">
-          {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
+        <div className="max-w-[36.5rem] text-center">
+          {activeSlide?.heading && (
+            <h1 className="mb-4 text-4xl md:text-5xl font-display font-semibold leading-tight">
+              {activeSlide.heading}
+            </h1>
+          )}
+          {activeSlide?.description && (
+            <p className="mb-6 text-base md:text-lg text-white/85">{activeSlide.description}</p>
+          )}
           {Array.isArray(links) && links.length > 0 && (
-            <ul className="flex md:justify-center gap-4">
+            <ul className="flex justify-center gap-4">
               {links.map(({ link }, i) => {
                 return (
                   <li key={i}>
@@ -59,7 +66,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ galleryImages, links, r
         </div>
       </div>
 
-      <div className="min-h-[80vh] w-full select-none absolute inset-0 -z-10">
+      <div className="w-full select-none absolute inset-0 -z-10">
         {slides.map((slide, index) => (
           <div
             key={index}
@@ -107,7 +114,6 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ galleryImages, links, r
           </div>
         </>
       )}
-
     </div>
   )
 }
