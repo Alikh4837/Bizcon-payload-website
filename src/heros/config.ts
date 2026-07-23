@@ -62,10 +62,29 @@ export const hero: Field = {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+        condition: (_, { type } = {}) => type === 'highImpact',
       },
       relationTo: 'media',
       required: true,
+    },
+    {
+      name: 'galleryImages',
+      type: 'array',
+      label: 'Gallery Images',
+      admin: {
+        condition: (_, { type } = {}) => type === 'mediumImpact',
+        description: 'Up to 4 images shown as a floating photo collage next to the heading.',
+      },
+      minRows: 1,
+      maxRows: 4,
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+      ],
     },
   ],
   label: false,

@@ -207,6 +207,15 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    /**
+     * Up to 4 images shown as a floating photo collage next to the heading.
+     */
+    galleryImages?:
+      | {
+          image: number | Media;
+          id?: string | null;
+        }[]
+      | null;
   };
   layout: (
     | CallToActionBlock
@@ -1378,6 +1387,12 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        galleryImages?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
       };
   layout?:
     | T
