@@ -39,7 +39,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ galleryImages, links })
 
   return (
     <div
-      className="relative min-h-[80vh] flex items-center justify-center text-white overflow-hidden"
+      className="relative -mt-16 min-h-[80vh] flex items-center justify-center text-white overflow-hidden"
       data-theme="dark"
     >
       <div className="container mb-8 z-10 relative flex items-center justify-center">
@@ -66,7 +66,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ galleryImages, links })
         </div>
       </div>
 
-      <div className="w-full select-none absolute inset-0 -z-10">
+      <div className="w-full select-none absolute inset-0 -z-10 bg-brand-ink">
         {slides.map((slide, index) => (
           <div
             key={index}
@@ -74,8 +74,8 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ galleryImages, links })
               index === activeIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <Media fill imgClassName="object-cover" priority={index === 0} resource={slide.image} />
-            <div className="absolute inset-0 bg-black/40" />
+            <Media fill imgClassName="object-contain" priority={index === 0} resource={slide.image} />
+            <div className="absolute inset-0 bg-black/20" />
           </div>
         ))}
       </div>
