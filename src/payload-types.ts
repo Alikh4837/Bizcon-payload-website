@@ -998,15 +998,27 @@ export interface TrendingBlock {
    */
   description?: string | null;
   /**
-   * Trending news, insights and articles. Numbered automatically in the order listed below.
+   * Trending news, insights and articles. Displayed as an auto-sliding card carousel.
    */
   items?:
     | {
+        /**
+         * Card thumbnail image.
+         */
+        image?: (number | null) | Media;
         title: string;
         /**
-         * Optional short tag, e.g. "Tax" or "Global Markets"
+         * Short 1-2 line teaser shown under the title.
+         */
+        excerpt?: string | null;
+        /**
+         * Optional short tag, e.g. "Tax" or "Global Markets" — shown as a badge on the image.
          */
         category?: string | null;
+        /**
+         * Optional publish date shown on the card.
+         */
+        date?: string | null;
         /**
          * Relative (/blog/x) or full URL to the article.
          */
@@ -1622,8 +1634,11 @@ export interface TrendingBlockSelect<T extends boolean = true> {
   items?:
     | T
     | {
+        image?: T;
         title?: T;
+        excerpt?: T;
         category?: T;
+        date?: T;
         link?: T;
         id?: T;
       };

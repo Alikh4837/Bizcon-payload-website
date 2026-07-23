@@ -7,6 +7,7 @@ import * as migration_20260722_163716_add_feature_grid_image from './20260722_16
 import * as migration_20260723_072543_add_header_cta_button from './20260723_072543_add_header_cta_button';
 import * as migration_20260723_075005_add_hero_gallery_images from './20260723_075005_add_hero_gallery_images';
 import * as migration_20260723_090941_update_hero_slider_slides from './20260723_090941_update_hero_slider_slides';
+import * as migration_20260723_100328_add_trending_card_fields from './20260723_100328_add_trending_card_fields';
 
 export const migrations = [
   {
@@ -52,6 +53,11 @@ export const migrations = [
   {
     up: migration_20260723_090941_update_hero_slider_slides.up,
     down: migration_20260723_090941_update_hero_slider_slides.down,
-    name: '20260723_090941_update_hero_slider_slides'
+    name: '20260723_090941_update_hero_slider_slides',
+  },
+  {
+    up: migration_20260723_100328_add_trending_card_fields.up,
+    down: migration_20260723_100328_add_trending_card_fields.down,
+    name: '20260723_100328_add_trending_card_fields'
   },
 ];

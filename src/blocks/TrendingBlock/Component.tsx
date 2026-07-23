@@ -1,16 +1,44 @@
+'use client'
+
 import type { TrendingBlock as TrendingBlockProps } from '@/payload-types'
 
-import { ArrowUpRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+
+import { Media } from '@/components/Media'
+import { formatDateTime } from '@/utilities/formatDateTime'
+
+const AUTO_ADVANCE_MS = 4500
+const VISIBLE_DESKTOP = 3
 
 export const TrendingBlock: React.FC<TrendingBlockProps> = (props) => {
   const { description, eyebrow, heading, items } = props
+  const [activeIndex, setActiveIndex] = useState(0)
+  const trackRef = useRef<HTMLDivElement>(null)
+
+  const slides = items || []
+  const slideCount = slides.length
+
+  useEffect(() => {
+    if (slideCount <= VISIBLE_DESKTOP) return
+
+    const timer = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % slideCount)
+    }, AUTO_ADVANCE_MS)
+
+    return () => clearInterval(timer)
+  }, [slideCount])
+
+  const goTo = (index: number) => {
+    if (slideCount === 0) return
+    setActiveIndex(((index % slideCount) + slideCount) % slideCount)
+  }
 
   return (
     <div className="container">
-      {(eyebrow || heading || description) && (
-        <div className="max-w-2xl mb-10">
+      <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+        <div className="max-w-2xl">
           {eyebrow && (
             <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-wider text-brand-accent">
               {eyebrow}
@@ -25,66 +53,112 @@ export const TrendingBlock: React.FC<TrendingBlockProps> = (props) => {
             <p className="mt-4 text-muted-foreground text-base leading-relaxed">{description}</p>
           )}
         </div>
-      )}
 
-      {items && items.length > 0 && (
-        <div className="grid gap-x-10 gap-y-1 md:grid-cols-2 md:divide-y-0 divide-y divide-brand-line/70">
-          {items.map((item, index) => {
-            const number = String(index + 1).padStart(2, '0')
-            const isExternal = item.link?.startsWith('http')
+        {slideCount > VISIBLE_DESKTOP && (
+          <div className="flex gap-2">
+            <button
+              type="button"
+              aria-label="Previous"
+              onClick={() => goTo(activeIndex - 1)}
+              className="rounded-full border border-brand-line p-2 hover:border-brand-accent hover:text-brand-accent transition-colors"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              aria-label="Next"
+              onClick={() => goTo(activeIndex + 1)}
+              className="rounded-full border border-brand-line p-2 hover:border-brand-accent hover:text-brand-accent transition-colors"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+        )}
+      </div>
 
-            const inner = (
-              <>
-                <span className="shrink-0 font-display text-xl font-semibold text-brand-accent/70 tabular-nums">
-                  {number}
-                </span>
-                <span className="flex-1 min-w-0">
-                  {item.category && (
-                    <span className="block font-mono text-[11px] font-semibold uppercase tracking-wider text-brand-accent mb-1">
-                      {item.category}
-                    </span>
-                  )}
-                  <span className="block font-display text-base md:text-lg font-medium leading-snug text-brand-ink transition-colors group-hover:text-brand-accent">
-                    {item.title}
-                  </span>
-                </span>
-                {item.link && (
-                  <ArrowUpRight
-                    className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-accent"
-                    strokeWidth={1.75}
-                  />
-                )}
-              </>
-            )
-
-            const rowClasses = 'group flex items-start gap-4 py-5 md:py-4'
-
-            if (!item.link) {
-              return (
-                <div key={index} className={rowClasses}>
-                  {inner}
-                </div>
-              )
-            }
-
-            return isExternal ? (
-              <a
-                key={index}
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={rowClasses}
-              >
-                {inner}
-              </a>
-            ) : (
-              <Link key={index} href={item.link} className={rowClasses}>
-                {inner}
-              </Link>
-            )
-          })}
+      {slideCount > 0 && (
+        <div className="overflow-hidden">
+          <div
+            ref={trackRef}
+            className="flex gap-6 transition-transform duration-500 ease-out"
+            style={{
+              transform: `translateX(calc(-${activeIndex} * (100% / ${VISIBLE_DESKTOP} + 1.5rem)))`,
+            }}
+          >
+            {slides.map((item, index) => (
+              <TrendingCard key={index} item={item} />
+            ))}
+          </div>
         </div>
       )}
     </div>
+  )
+}
+
+type TrendingItem = NonNullable<TrendingBlockProps['items']>[number]
+
+const TrendingCard: React.FC<{ item: TrendingItem }> = ({ item }) => {
+  const { category, date, excerpt, image, link, title } = item
+  const isExternal = link?.startsWith('http')
+
+  const card = (
+    <div className="group h-full overflow-hidden rounded-2xl border border-brand-line bg-card shadow-sm transition-shadow hover:shadow-md">
+      <div className="relative aspect-[3/2] w-full overflow-hidden">
+        {image && typeof image === 'object' ? (
+          <Media
+            resource={image}
+            imgClassName="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="h-full w-full bg-muted" />
+        )}
+        {category && (
+          <span className="absolute right-3 top-3 rounded-md bg-background/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-ink backdrop-blur-sm">
+            {category}
+          </span>
+        )}
+      </div>
+
+      <div className="p-5">
+        <h3 className="font-display text-base md:text-lg font-semibold leading-snug text-brand-ink line-clamp-2 group-hover:text-brand-accent transition-colors">
+          {title}
+        </h3>
+        {excerpt && (
+          <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-2">
+            {excerpt}
+          </p>
+        )}
+        {date && (
+          <p className="mt-3 text-xs text-muted-foreground">{formatDateTime(date)}</p>
+        )}
+      </div>
+    </div>
+  )
+
+  const wrapperClasses = 'shrink-0' as const
+  const wrapperStyle = { width: `calc(100% / ${3} - 1rem)` }
+
+  if (!link) {
+    return (
+      <div className={wrapperClasses} style={wrapperStyle}>
+        {card}
+      </div>
+    )
+  }
+
+  return isExternal ? (
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={wrapperClasses}
+      style={wrapperStyle}
+    >
+      {card}
+    </a>
+  ) : (
+    <Link href={link} className={wrapperClasses} style={wrapperStyle}>
+      {card}
+    </Link>
   )
 }
