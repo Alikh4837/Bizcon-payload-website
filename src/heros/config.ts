@@ -62,7 +62,7 @@ export const hero: Field = {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) => type === 'highImpact',
+        condition: (_, { type } = {}) => type === 'mediumImpact',
       },
       relationTo: 'media',
       required: true,
@@ -70,13 +70,13 @@ export const hero: Field = {
     {
       name: 'galleryImages',
       type: 'array',
-      label: 'Gallery Images',
+      label: 'Slider Images',
       admin: {
-        condition: (_, { type } = {}) => type === 'mediumImpact',
-        description: 'Up to 4 images shown as a floating photo collage next to the heading.',
+        condition: (_, { type } = {}) => type === 'highImpact',
+        description: 'Add the images for the hero slider. They auto-advance and can also be navigated with the prev/next buttons.',
       },
       minRows: 1,
-      maxRows: 4,
+      maxRows: 6,
       fields: [
         {
           name: 'image',
