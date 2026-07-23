@@ -228,6 +228,7 @@ export interface Page {
     | ContactBlock
     | TeamBlock
     | FeatureGridBlock
+    | ServicesSliderBlock
     | TestimonialsBlock
     | LogoStripBlock
     | TrendingBlock
@@ -940,6 +941,53 @@ export interface FeatureGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesSliderBlock".
+ */
+export interface ServicesSliderBlock {
+  /**
+   * Small pill label above the heading, e.g. "CREATIVE APPROACH".
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Short paragraph shown to the right of the heading.
+   */
+  description?: string | null;
+  /**
+   * Service cards. This slider does not auto-play — visitors move it with the prev/next buttons.
+   */
+  items?:
+    | {
+        /**
+         * Card background image.
+         */
+        image?: (number | null) | Media;
+        /**
+         * Short one-word tag shown as a pill on the image, e.g. "TRUSTED" or "EXPERT".
+         */
+        badge?: string | null;
+        title: string;
+        /**
+         * Small uppercase line under the title, e.g. "COMPETITORS RESEARCH".
+         */
+        tag?: string | null;
+        /**
+         * Optional. Relative (/services/x) or full URL.
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  showFooterNote?: boolean | null;
+  footerNote?: string | null;
+  footerLinkLabel?: string | null;
+  footerLink?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesSliderBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialsBlock".
  */
 export interface TestimonialsBlock {
@@ -1421,6 +1469,7 @@ export interface PagesSelect<T extends boolean = true> {
         contactBlock?: T | ContactBlockSelect<T>;
         teamBlock?: T | TeamBlockSelect<T>;
         featureGridBlock?: T | FeatureGridBlockSelect<T>;
+        servicesSliderBlock?: T | ServicesSliderBlockSelect<T>;
         testimonialsBlock?: T | TestimonialsBlockSelect<T>;
         logoStripBlock?: T | LogoStripBlockSelect<T>;
         trendingBlock?: T | TrendingBlockSelect<T>;
@@ -1586,6 +1635,31 @@ export interface FeatureGridBlockSelect<T extends boolean = true> {
         linkLabel?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesSliderBlock_select".
+ */
+export interface ServicesSliderBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        image?: T;
+        badge?: T;
+        title?: T;
+        tag?: T;
+        link?: T;
+        id?: T;
+      };
+  showFooterNote?: T;
+  footerNote?: T;
+  footerLinkLabel?: T;
+  footerLink?: T;
   id?: T;
   blockName?: T;
 }

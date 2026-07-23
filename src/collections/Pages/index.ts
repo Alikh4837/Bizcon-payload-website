@@ -10,6 +10,7 @@ import { FeatureGridBlock } from '../../blocks/FeatureGridBlock/Config'
 import { FormBlock } from '../../blocks/Form/config'
 import { LogoStripBlock } from '../../blocks/LogoStripBlock/Config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { ServicesSliderBlock } from '../../blocks/ServicesSliderBlock/Config'
 import { TeamBlock } from '../../blocks/TeamBlock/Config'
 import { TestimonialsBlock } from '../../blocks/TestimonialsBlock/Config'
 import { TrendingBlock } from '../../blocks/TrendingBlock/Config'
@@ -91,6 +92,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ContactBlock,
                 TeamBlock,
                 FeatureGridBlock,
+                ServicesSliderBlock,
                 TestimonialsBlock,
                 LogoStripBlock,
                 TrendingBlock,

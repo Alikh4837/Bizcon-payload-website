@@ -10,6 +10,7 @@ import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { TeamBlock } from '@/blocks/TeamBlock/Component'
 import { FeatureGridBlock } from '@/blocks/FeatureGridBlock/Component'
+import { ServicesSliderBlock } from '@/blocks/ServicesSliderBlock/Component'
 import { TestimonialsBlock } from '@/blocks/TestimonialsBlock/Component'
 import { LogoStripBlock } from '@/blocks/LogoStripBlock/Component'
 import { TrendingBlock } from '@/blocks/TrendingBlock/Component'
@@ -24,6 +25,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   teamBlock: TeamBlock,
   featureGridBlock: FeatureGridBlock,
+  servicesSliderBlock: ServicesSliderBlock,
   testimonialsBlock: TestimonialsBlock,
   logoStripBlock: LogoStripBlock,
   trendingBlock: TrendingBlock,
