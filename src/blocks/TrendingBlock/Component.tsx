@@ -14,26 +14,56 @@ const VISIBLE_DESKTOP = 3
 
 export const TrendingBlock: React.FC<TrendingBlockProps> = (props) => {
   const { description, eyebrow, heading, items } = props
-  const [activeIndex, setActiveIndex] = useState(0)
-  const trackRef = useRef<HTMLDivElement>(null)
-
   const slides = items || []
   const slideCount = slides.length
+  const loopable = slideCount > VISIBLE_DESKTOP
+
+  // For a seamless infinite loop, we pad the real slides with clones of the
+  // tail at the start and clones of the head at the end. We navigate through
+  // this extended array, and silently snap back to the equivalent real
+  // position (no transition) once we drift into the cloned padding.
+  const extendedSlides = loopable
+    ? [
+        ...slides.slice(slideCount - VISIBLE_DESKTOP),
+        ...slides,
+        ...slides.slice(0, VISIBLE_DESKTOP),
+      ]
+    : slides
+
+  const [index, setIndex] = useState(loopable ? VISIBLE_DESKTOP : 0)
+  const [withTransition, setWithTransition] = useState(true)
 
   useEffect(() => {
-    if (slideCount <= VISIBLE_DESKTOP) return
+    if (!loopable) return
 
     const timer = setInterval(() => {
-      setActiveIndex((current) => (current + 1) % slideCount)
+      setIndex((current) => current + 1)
     }, AUTO_ADVANCE_MS)
 
     return () => clearInterval(timer)
-  }, [slideCount])
+  }, [loopable])
 
-  const goTo = (index: number) => {
-    if (slideCount === 0) return
-    setActiveIndex(((index % slideCount) + slideCount) % slideCount)
+  const handleTransitionEnd = () => {
+    if (!loopable) return
+
+    if (index >= slideCount + VISIBLE_DESKTOP) {
+      setWithTransition(false)
+      setIndex(index - slideCount)
+    } else if (index < VISIBLE_DESKTOP) {
+      setWithTransition(false)
+      setIndex(index + slideCount)
+    }
   }
+
+  // Re-enable the transition on the next frame after a silent snap-back.
+  useEffect(() => {
+    if (withTransition) return
+    const raf = requestAnimationFrame(() => setWithTransition(true))
+    return () => cancelAnimationFrame(raf)
+  }, [withTransition])
+
+  const goNext = () => setIndex((current) => current + 1)
+  const goPrev = () => setIndex((current) => current - 1)
 
   return (
     <div className="container">
@@ -54,12 +84,12 @@ export const TrendingBlock: React.FC<TrendingBlockProps> = (props) => {
           )}
         </div>
 
-        {slideCount > VISIBLE_DESKTOP && (
+        {loopable && (
           <div className="flex gap-2">
             <button
               type="button"
               aria-label="Previous"
-              onClick={() => goTo(activeIndex - 1)}
+              onClick={goPrev}
               className="rounded-full border border-brand-line p-2 hover:border-brand-accent hover:text-brand-accent transition-colors"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -67,7 +97,7 @@ export const TrendingBlock: React.FC<TrendingBlockProps> = (props) => {
             <button
               type="button"
               aria-label="Next"
-              onClick={() => goTo(activeIndex + 1)}
+              onClick={goNext}
               className="rounded-full border border-brand-line p-2 hover:border-brand-accent hover:text-brand-accent transition-colors"
             >
               <ChevronRight className="h-5 w-5" />
@@ -79,14 +109,14 @@ export const TrendingBlock: React.FC<TrendingBlockProps> = (props) => {
       {slideCount > 0 && (
         <div className="overflow-hidden">
           <div
-            ref={trackRef}
-            className="flex gap-6 transition-transform duration-500 ease-out"
+            onTransitionEnd={handleTransitionEnd}
+            className={`flex gap-6 ${withTransition ? 'transition-transform duration-500 ease-out' : ''}`}
             style={{
-              transform: `translateX(calc(-${activeIndex} * (100% / ${VISIBLE_DESKTOP} + 1.5rem)))`,
+              transform: `translateX(calc(-${index} * (100% / ${VISIBLE_DESKTOP} + 1.5rem)))`,
             }}
           >
-            {slides.map((item, index) => (
-              <TrendingCard key={index} item={item} />
+            {extendedSlides.map((item, i) => (
+              <TrendingCard key={i} item={item} />
             ))}
           </div>
         </div>
