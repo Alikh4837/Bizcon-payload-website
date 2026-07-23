@@ -9,6 +9,7 @@ import * as migration_20260723_075005_add_hero_gallery_images from './20260723_0
 import * as migration_20260723_090941_update_hero_slider_slides from './20260723_090941_update_hero_slider_slides';
 import * as migration_20260723_100328_add_trending_card_fields from './20260723_100328_add_trending_card_fields';
 import * as migration_20260723_111137_add_services_slider_block from './20260723_111137_add_services_slider_block';
+import * as migration_20260723_131939_missionvision_and_aboutintroblock from './20260723_131939_missionvision_and_aboutintroblock';
 
 export const migrations = [
   {
@@ -64,6 +65,11 @@ export const migrations = [
   {
     up: migration_20260723_111137_add_services_slider_block.up,
     down: migration_20260723_111137_add_services_slider_block.down,
-    name: '20260723_111137_add_services_slider_block'
+    name: '20260723_111137_add_services_slider_block',
+  },
+  {
+    up: migration_20260723_131939_missionvision_and_aboutintroblock.up,
+    down: migration_20260723_131939_missionvision_and_aboutintroblock.down,
+    name: '20260723_131939_missionvision_and_aboutintroblock'
   },
 ];
