@@ -144,11 +144,13 @@ const ServiceCard: React.FC<{ item: ServiceItem }> = ({ item }) => {
     >
       {image && typeof image === 'object' ? (
         <Media
+          fill
           resource={image}
-          imgClassName="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          imgClassName="object-cover transition-transform duration-500 group-hover:scale-105"
+          pictureClassName="absolute inset-0"
         />
       ) : (
-        <div className="h-full w-full bg-white/10" />
+        <div className="absolute inset-0 bg-white/10" />
       )}
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
