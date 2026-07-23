@@ -135,13 +135,15 @@ const TrendingCard: React.FC<{ item: TrendingItem }> = ({ item }) => {
     <div className="group h-full overflow-hidden rounded-2xl border border-brand-line bg-card shadow-sm transition-shadow hover:shadow-md">
       <div className="relative aspect-[3/2] w-full overflow-hidden">
         {image && typeof image === 'object' ? (
-          <Media
-            resource={image}
-            imgClassName="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="h-full w-full bg-muted" />
-        )}
+  <Media
+    fill
+    resource={image}
+    imgClassName="object-cover transition-transform duration-500 group-hover:scale-105"
+    pictureClassName="absolute inset-0"
+  />
+) : (
+  <div className="h-full w-full bg-muted" />
+)}
         {category && (
           <span className="absolute right-3 top-3 rounded-md bg-background/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-ink backdrop-blur-sm">
             {category}
