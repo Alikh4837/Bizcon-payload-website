@@ -2136,6 +2136,16 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
+  /**
+   * The highlighted button shown at the end of the header nav (e.g. "Get Started").
+   */
+  ctaButton?: {
+    label?: string | null;
+    /**
+     * Relative (/contact) or full URL.
+     */
+    url?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2189,6 +2199,12 @@ export interface HeaderSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  ctaButton?:
+    | T
+    | {
+        label?: T;
+        url?: T;
       };
   updatedAt?: T;
   createdAt?: T;

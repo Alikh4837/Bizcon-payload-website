@@ -37,6 +37,27 @@ export const Header: GlobalConfig = {
       ],
       maxRows: 6,
     },
+    {
+      name: 'ctaButton',
+      type: 'group',
+      admin: {
+        description: 'The highlighted button shown at the end of the header nav (e.g. "Get Started").',
+      },
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          defaultValue: 'Get Started',
+        },
+        {
+          name: 'url',
+          type: 'text',
+          admin: {
+            description: 'Relative (/contact) or full URL.',
+          },
+        },
+      ],
+    },
   ],
   hooks: {
     afterChange: [revalidateHeader],
