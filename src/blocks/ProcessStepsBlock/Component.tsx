@@ -123,13 +123,13 @@ export const ProcessStepsBlockComponent: React.FC<ProcessStepsBlockProps> = (pro
             <div className="absolute inset-0 m-auto h-[80%] w-[80%] rounded-full bg-primary/10" />
 
             {/* Decorative clouds, positioned to sit around the illustration */}
-            <Cloud className="absolute -left-4 top-[28%] h-6 w-12 text-slate-200/80 animate-float" />
+            <Cloud className="absolute -left-4 top-[28%] h-9 w-16 text-slate-200/80 animate-float" />
             <Cloud
-              className="absolute right-2 top-[16%] h-5 w-10 text-slate-200/70 animate-float"
+              className="absolute right-2 top-[16%] h-7 w-14 text-slate-200/70 animate-float"
               style={{ animationDelay: '1s' }}
             />
             <Cloud
-              className="absolute right-[18%] top-[6%] h-4 w-8 text-slate-200/60 animate-float"
+              className="absolute right-[18%] top-[6%] h-6 w-11 text-slate-200/60 animate-float"
               style={{ animationDelay: '2s' }}
             />
 
