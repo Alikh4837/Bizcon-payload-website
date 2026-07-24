@@ -24,6 +24,7 @@ import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { SplitContentBlock } from '@/blocks/SplitContentBlock/Config'
 import { AchievementBlock } from '@/blocks/AchievementBlock/Config'
+import { ProcessStepsBlock } from '@/blocks/ProcessStepsBlock/Config'
 
 import {
   MetaDescriptionField,
@@ -105,6 +106,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 WhereWeServeBlock,
                 SplitContentBlock,
                 AchievementBlock,
+                ProcessStepsBlock,
               ],
               required: true,
               admin: {

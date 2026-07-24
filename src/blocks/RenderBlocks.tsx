@@ -19,6 +19,7 @@ import { TrendingBlock } from '@/blocks/TrendingBlock/Component'
 import { WhereWeServeBlock } from '@/blocks/WhereWeServe/Component'
 import { SplitContentBlockComponent } from './SplitContentBlock/Component'
 import { AchievementBlockComponent } from './AchievementBlock/Component'
+import { ProcessStepsBlock } from '@/blocks/ProcessStepsBlock/Config'
 
 
 const blockComponents = {
@@ -39,6 +40,7 @@ const blockComponents = {
   whereWeServeBlock: WhereWeServeBlock,
   splitContentBlock: SplitContentBlockComponent,
   achievementBlock: AchievementBlockComponent,
+  processStepsBlock: ProcessStepsBlock,
 }
 
 export const RenderBlocks: React.FC<{

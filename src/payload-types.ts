@@ -237,6 +237,7 @@ export interface Page {
     | WhereWeServeBlock
     | SplitContentBlock
     | AchievementBlock
+    | ProcessStepsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1297,6 +1298,54 @@ export interface AchievementBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessStepsBlock".
+ */
+export interface ProcessStepsBlock {
+  eyebrow?: string | null;
+  title: string;
+  image: number | Media;
+  steps?:
+    | {
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  footerBadge?: string | null;
+  footerText?: string | null;
+  /**
+   * e.g. "Got a project in mind?"
+   */
+  footerLink?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'blog';
+                value: number | Blog;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'processStepsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1648,6 +1697,7 @@ export interface PagesSelect<T extends boolean = true> {
         whereWeServeBlock?: T | WhereWeServeBlockSelect<T>;
         splitContentBlock?: T | SplitContentBlockSelect<T>;
         achievementBlock?: T | AchievementBlockSelect<T>;
+        processStepsBlock?: T | ProcessStepsBlockSelect<T>;
       };
   meta?:
     | T
@@ -2016,6 +2066,41 @@ export interface AchievementBlockSelect<T extends boolean = true> {
         number?: T;
         suffix?: T;
         label?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessStepsBlock_select".
+ */
+export interface ProcessStepsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  image?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  footerBadge?: T;
+  footerText?: T;
+  footerLink?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
         id?: T;
       };
   id?: T;
