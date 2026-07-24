@@ -11,6 +11,7 @@ import * as migration_20260723_100328_add_trending_card_fields from './20260723_
 import * as migration_20260723_111137_add_services_slider_block from './20260723_111137_add_services_slider_block';
 import * as migration_20260723_131939_missionvision_and_aboutintroblock from './20260723_131939_missionvision_and_aboutintroblock';
 import * as migration_20260724_070613_add_split_content_block from './20260724_070613_add_split_content_block';
+import * as migration_20260724_075523_add_achievement_block from './20260724_075523_add_achievement_block';
 
 export const migrations = [
   {
@@ -76,6 +77,11 @@ export const migrations = [
   {
     up: migration_20260724_070613_add_split_content_block.up,
     down: migration_20260724_070613_add_split_content_block.down,
-    name: '20260724_070613_add_split_content_block'
+    name: '20260724_070613_add_split_content_block',
+  },
+  {
+    up: migration_20260724_075523_add_achievement_block.up,
+    down: migration_20260724_075523_add_achievement_block.down,
+    name: '20260724_075523_add_achievement_block'
   },
 ];
