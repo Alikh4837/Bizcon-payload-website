@@ -21,6 +21,7 @@ import { SplitContentBlockComponent } from './SplitContentBlock/Component'
 import { AchievementBlockComponent } from './AchievementBlock/Component'
 import { ProcessStepsBlockComponent } from '@/blocks/ProcessStepsBlock/Component'
 import { TrustedBySliderBlockComponent } from '@/blocks/TrustedBySliderBlock/Component'
+import { BrandLogoRowBlockComponent } from '@/blocks/BrandLogoRowBlock/Component'
 
 
 const blockComponents = {
@@ -43,6 +44,7 @@ const blockComponents = {
   achievementBlock: AchievementBlockComponent,
   processStepsBlock: ProcessStepsBlockComponent,
   trustedBySliderBlock: TrustedBySliderBlockComponent,
+  brandLogoRowBlock: BrandLogoRowBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{

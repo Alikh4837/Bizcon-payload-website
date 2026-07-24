@@ -239,6 +239,7 @@ export interface Page {
     | AchievementBlock
     | ProcessStepsBlock
     | TrustedBySliderBlock
+    | BrandLogoRowBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1390,6 +1391,28 @@ export interface TrustedBySliderBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandLogoRowBlock".
+ */
+export interface BrandLogoRowBlock {
+  /**
+   * Shown full-color, evenly spaced across the row — no heading, no card borders. Meant to sit directly under the Trusted By Slider block.
+   */
+  logos?:
+    | {
+        logo: number | Media;
+        /**
+         * Optional. Full URL to the brand/client site.
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'brandLogoRowBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1743,6 +1766,7 @@ export interface PagesSelect<T extends boolean = true> {
         achievementBlock?: T | AchievementBlockSelect<T>;
         processStepsBlock?: T | ProcessStepsBlockSelect<T>;
         trustedBySliderBlock?: T | TrustedBySliderBlockSelect<T>;
+        brandLogoRowBlock?: T | BrandLogoRowBlockSelect<T>;
       };
   meta?:
     | T
@@ -2173,6 +2197,21 @@ export interface TrustedBySliderBlockSelect<T extends boolean = true> {
         logo?: T;
         description?: T;
         growthText?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandLogoRowBlock_select".
+ */
+export interface BrandLogoRowBlockSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        logo?: T;
+        link?: T;
         id?: T;
       };
   id?: T;
