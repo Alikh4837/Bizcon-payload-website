@@ -35,7 +35,7 @@ const useRevealOnScroll = <T extends HTMLElement>() => {
 }
 
 export const ProcessStepsBlockComponent: React.FC<ProcessStepsBlockProps> = (props) => {
-  const { eyebrow, title, image, steps, footerBadge, footerText, footerLink } = props
+  const { eyebrow, title, image, steps, footerBadge, footerText, cta } = props
 
   const { ref: sectionRef, visible } = useRevealOnScroll<HTMLDivElement>()
 
@@ -113,7 +113,7 @@ export const ProcessStepsBlockComponent: React.FC<ProcessStepsBlockProps> = (pro
         </div>
 
         {/* FOOTER STRIP */}
-        {(footerBadge || footerText || footerLink?.[0]?.link) && (
+        {(footerBadge || footerText || cta?.[0]?.link) && (
           <div
             className={cn(
               'mt-16 flex flex-wrap items-center justify-center gap-3',
@@ -127,8 +127,8 @@ export const ProcessStepsBlockComponent: React.FC<ProcessStepsBlockProps> = (pro
               </span>
             )}
             {footerText && <span className="text-muted-foreground">{footerText}</span>}
-            {footerLink?.[0]?.link && (
-              <CMSLink {...footerLink[0].link} appearance="inline" className="font-semibold underline" />
+            {cta?.[0]?.link && (
+              <CMSLink {...cta[0].link} appearance="inline" className="font-semibold underline" />
             )}
           </div>
         )}

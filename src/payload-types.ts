@@ -1312,11 +1312,14 @@ export interface ProcessStepsBlock {
       }[]
     | null;
   footerBadge?: string | null;
+  /**
+   * Optional strip below the steps, e.g. "HURRAY — Let's make something great work together."
+   */
   footerText?: string | null;
   /**
    * e.g. "Got a project in mind?"
    */
-  footerLink?:
+  cta?:
     | {
         link: {
           type?: ('reference' | 'custom') | null;
@@ -1335,7 +1338,7 @@ export interface ProcessStepsBlock {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: null;
+          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
@@ -2088,7 +2091,7 @@ export interface ProcessStepsBlockSelect<T extends boolean = true> {
       };
   footerBadge?: T;
   footerText?: T;
-  footerLink?:
+  cta?:
     | T
     | {
         link?:

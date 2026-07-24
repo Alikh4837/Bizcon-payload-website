@@ -85,7 +85,7 @@ export const ProcessStepsBlock: Block = {
 
     linkGroup({
       overrides: {
-        name: 'footerLink',
+        name: 'cta',
         maxRows: 1,
         admin: {
           initCollapsed: true,
