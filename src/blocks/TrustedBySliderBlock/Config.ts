@@ -108,5 +108,39 @@ export const TrustedBySliderBlock: Block = {
         },
       ],
     },
+
+    {
+      name: 'logos',
+      label: 'Brand Logos',
+      type: 'array',
+      minRows: 1,
+      maxRows: 8,
+      labels: {
+        singular: 'Logo',
+        plural: 'Logos',
+      },
+      admin: {
+        initCollapsed: true,
+        description:
+          'Rendered full-color in a row directly below the metric cards, evenly spread across the width.',
+      },
+      fields: [
+        {
+          name: 'logo',
+          label: 'Logo',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'link',
+          label: 'Link (optional)',
+          type: 'text',
+          admin: {
+            description: 'Optional. Full URL to the brand/client site.',
+          },
+        },
+      ],
+    },
   ],
 }

@@ -1385,6 +1385,19 @@ export interface TrustedBySliderBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Rendered full-color in a row directly below the metric cards, evenly spread across the width.
+   */
+  logos?:
+    | {
+        logo: number | Media;
+        /**
+         * Optional. Full URL to the brand/client site.
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'trustedBySliderBlock';
@@ -2197,6 +2210,13 @@ export interface TrustedBySliderBlockSelect<T extends boolean = true> {
         logo?: T;
         description?: T;
         growthText?: T;
+        id?: T;
+      };
+  logos?:
+    | T
+    | {
+        logo?: T;
+        link?: T;
         id?: T;
       };
   id?: T;

@@ -27,7 +27,7 @@ const DotMapBackdrop: React.FC = () => (
 )
 
 export const TrustedBySliderBlockComponent: React.FC<TrustedBySliderBlockProps> = (props) => {
-  const { heading, testimonials, metrics } = props
+  const { heading, testimonials, metrics, logos } = props
 
   const count = testimonials?.length || 0
   const [active, setActive] = useState(0)
@@ -137,7 +137,7 @@ export const TrustedBySliderBlockComponent: React.FC<TrustedBySliderBlockProps> 
         {/* METRIC CARDS */}
         {metrics && metrics.length > 0 && (
           <div
-            className="mt-16 grid gap-6"
+            className="mt-12 grid gap-6"
             style={{ gridTemplateColumns: `repeat(${Math.min(metrics.length, 3)}, minmax(0, 1fr))` }}
           >
             {metrics.map((metric, i) => (
@@ -152,6 +152,36 @@ export const TrustedBySliderBlockComponent: React.FC<TrustedBySliderBlockProps> 
                 <p className="text-sm font-semibold text-primary">{metric.growthText}</p>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* BRAND LOGO ROW */}
+        {logos && logos.length > 0 && (
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-x-10 gap-y-6">
+            {logos.map((item, index) => {
+              const { link, logo } = item
+
+              const content =
+                logo && typeof logo === 'object' ? (
+                  <Media resource={logo} imgClassName="h-9 md:h-10 w-auto object-contain" />
+                ) : null
+
+              if (!content) return null
+
+              return link ? (
+                <a
+                  key={index}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="opacity-90 transition-opacity hover:opacity-100"
+                >
+                  {content}
+                </a>
+              ) : (
+                <div key={index}>{content}</div>
+              )
+            })}
           </div>
         )}
       </div>
