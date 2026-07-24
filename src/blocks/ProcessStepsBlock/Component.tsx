@@ -34,6 +34,25 @@ const useRevealOnScroll = <T extends HTMLElement>() => {
   return { ref, visible }
 }
 
+/** A small flat decorative cloud shape (purely visual, no data behind it). */
+const Cloud: React.FC<{ className?: string; style?: React.CSSProperties }> = ({
+  className,
+  style,
+}) => (
+  <svg
+    viewBox="0 0 64 32"
+    className={className}
+    style={style}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M18 24C11.373 24 6 19.075 6 13S11.373 2 18 2c3.06 0 5.85 1.06 7.98 2.82C27.67 2.11 30.66.5 34 .5c5.8 0 10.6 4.42 11.4 10.1C50.7 11.4 55 15.86 55 21.3 55 27.2 50.4 32 44.7 32H18z"
+      fill="currentColor"
+    />
+  </svg>
+)
+
 export const ProcessStepsBlockComponent: React.FC<ProcessStepsBlockProps> = (props) => {
   const { eyebrow, title, image, steps, footerBadge, footerText, cta } = props
 
@@ -102,6 +121,18 @@ export const ProcessStepsBlockComponent: React.FC<ProcessStepsBlockProps> = (pro
             )}
           >
             <div className="absolute inset-0 m-auto h-[80%] w-[80%] rounded-full bg-primary/10" />
+
+            {/* Decorative clouds, positioned to sit around the illustration */}
+            <Cloud className="absolute -left-4 top-[28%] h-6 w-12 text-slate-200/80 animate-float" />
+            <Cloud
+              className="absolute right-2 top-[16%] h-5 w-10 text-slate-200/70 animate-float"
+              style={{ animationDelay: '1s' }}
+            />
+            <Cloud
+              className="absolute right-[18%] top-[6%] h-4 w-8 text-slate-200/60 animate-float"
+              style={{ animationDelay: '2s' }}
+            />
+
             {image && (
               <Media
                 resource={image}
