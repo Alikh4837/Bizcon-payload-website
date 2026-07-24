@@ -87,13 +87,13 @@ const useRevealOnScroll = <T extends HTMLElement>() => {
   return { ref, visible }
 }
 
-const Stat: React.FC<{ number: number; suffix?: string | null; label: string; big?: boolean }> = ({
+const Stat: React.FC<{ number?: number | null; suffix?: string | null; label: string; big?: boolean }> = ({
   number,
   suffix,
   label,
   big,
 }) => {
-  const { display, ref } = useCountUp(number)
+  const { display, ref } = useCountUp(number || 0)
 
   return (
     <div className={cn('text-center', big ? '' : 'flex flex-col items-center gap-2')}>
@@ -104,8 +104,12 @@ const Stat: React.FC<{ number: number; suffix?: string | null; label: string; bi
           big ? 'text-6xl md:text-7xl' : 'text-3xl md:text-4xl',
         )}
       >
-        <span ref={ref}>{display}</span>
-        {suffix}
+        {number != null ? (
+          <>
+            <span ref={ref}>{display}</span>
+            {suffix}
+          </>
+        ) : null}
       </p>
       <p
         className={cn(

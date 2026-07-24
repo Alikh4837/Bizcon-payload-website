@@ -167,7 +167,6 @@ export const AchievementBlock: Block = {
               name: 'number',
               label: 'Number',
               type: 'number',
-              required: true,
               admin: { width: '34%' },
             },
             {

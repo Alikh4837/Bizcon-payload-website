@@ -1285,7 +1285,7 @@ export interface AchievementBlock {
   statLabel: string;
   stats?:
     | {
-        number: number;
+        number?: number | null;
         suffix?: string | null;
         label: string;
         id?: string | null;
