@@ -240,6 +240,7 @@ export interface Page {
     | ProcessStepsBlock
     | TrustedBySliderBlock
     | BrandLogoRowBlock
+    | TrustpilotBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1426,6 +1427,32 @@ export interface BrandLogoRowBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrustpilotBlock".
+ */
+export interface TrustpilotBlock {
+  /**
+   * Upload the official Trustpilot logo file from your own Trustpilot business account/brand kit — do not use a logo pulled from elsewhere.
+   */
+  platformLogo: number | Media;
+  heading: string;
+  /**
+   * Out of 5. Use your real, current Trustpilot score.
+   */
+  rating: number;
+  /**
+   * e.g. "Based on 1,240 reviews". Use your real, current count.
+   */
+  reviewCount: string;
+  /**
+   * Optional. Sends visitors to your actual Trustpilot profile page.
+   */
+  link?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'trustpilotBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1780,6 +1807,7 @@ export interface PagesSelect<T extends boolean = true> {
         processStepsBlock?: T | ProcessStepsBlockSelect<T>;
         trustedBySliderBlock?: T | TrustedBySliderBlockSelect<T>;
         brandLogoRowBlock?: T | BrandLogoRowBlockSelect<T>;
+        trustpilotBlock?: T | TrustpilotBlockSelect<T>;
       };
   meta?:
     | T
@@ -2234,6 +2262,19 @@ export interface BrandLogoRowBlockSelect<T extends boolean = true> {
         link?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrustpilotBlock_select".
+ */
+export interface TrustpilotBlockSelect<T extends boolean = true> {
+  platformLogo?: T;
+  heading?: T;
+  rating?: T;
+  reviewCount?: T;
+  link?: T;
   id?: T;
   blockName?: T;
 }

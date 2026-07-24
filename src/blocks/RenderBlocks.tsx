@@ -22,6 +22,8 @@ import { AchievementBlockComponent } from './AchievementBlock/Component'
 import { ProcessStepsBlockComponent } from '@/blocks/ProcessStepsBlock/Component'
 import { TrustedBySliderBlockComponent } from '@/blocks/TrustedBySliderBlock/Component'
 import { BrandLogoRowBlockComponent } from '@/blocks/BrandLogoRowBlock/Component'
+import { TrustpilotBlockComponent } from '@/blocks/TrustpilotBlock/Component'
+
 
 
 const blockComponents = {
@@ -45,6 +47,7 @@ const blockComponents = {
   processStepsBlock: ProcessStepsBlockComponent,
   trustedBySliderBlock: TrustedBySliderBlockComponent,
   brandLogoRowBlock: BrandLogoRowBlockComponent,
+  trustpilotBlock: TrustpilotBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{

@@ -27,6 +27,8 @@ import { AchievementBlock } from '@/blocks/AchievementBlock/Config'
 import { ProcessStepsBlock } from '@/blocks/ProcessStepsBlock/Config'
 import { TrustedBySliderBlock } from '@/blocks/TrustedBySliderBlock/Config'
 import {BrandLogoRowBlock} from '@/blocks/BrandLogoRowBlock/Config'
+import { TrustpilotBlock } from '@/blocks/TrustpilotBlock/Config'
+
 
 import {
   MetaDescriptionField,
@@ -111,6 +113,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ProcessStepsBlock,
                 TrustedBySliderBlock,
                 BrandLogoRowBlock,
+                TrustpilotBlock,
               ],
               required: true,
               admin: {
