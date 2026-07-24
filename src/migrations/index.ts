@@ -13,6 +13,7 @@ import * as migration_20260723_131939_missionvision_and_aboutintroblock from './
 import * as migration_20260724_070613_add_split_content_block from './20260724_070613_add_split_content_block';
 import * as migration_20260724_075523_add_achievement_block from './20260724_075523_add_achievement_block';
 import * as migration_20260724_102152_add_process_steps_block from './20260724_102152_add_process_steps_block';
+import * as migration_20260724_121452_add_trusted_by_slider_block from './20260724_121452_add_trusted_by_slider_block';
 
 export const migrations = [
   {
@@ -88,6 +89,11 @@ export const migrations = [
   {
     up: migration_20260724_102152_add_process_steps_block.up,
     down: migration_20260724_102152_add_process_steps_block.down,
-    name: '20260724_102152_add_process_steps_block'
+    name: '20260724_102152_add_process_steps_block',
+  },
+  {
+    up: migration_20260724_121452_add_trusted_by_slider_block.up,
+    down: migration_20260724_121452_add_trusted_by_slider_block.down,
+    name: '20260724_121452_add_trusted_by_slider_block'
   },
 ];
