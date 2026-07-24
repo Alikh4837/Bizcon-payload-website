@@ -20,7 +20,7 @@ import { WhereWeServeBlock } from '@/blocks/WhereWeServe/Component'
 import { SplitContentBlockComponent } from './SplitContentBlock/Component'
 import { AchievementBlockComponent } from './AchievementBlock/Component'
 import { ProcessStepsBlockComponent } from '@/blocks/ProcessStepsBlock/Component'
-// import { TrustedBySliderBlockComponent } from '@/blocks/TrustedBySliderBlock/Component'
+import { TrustedBySliderBlockComponent } from '@/blocks/TrustedBySliderBlock/Component'
 
 
 const blockComponents = {
@@ -42,7 +42,7 @@ const blockComponents = {
   splitContentBlock: SplitContentBlockComponent,
   achievementBlock: AchievementBlockComponent,
   processStepsBlock: ProcessStepsBlockComponent,
-  // trustedBySliderBlock: TrustedBySliderBlockComponent,
+  trustedBySliderBlock: TrustedBySliderBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{

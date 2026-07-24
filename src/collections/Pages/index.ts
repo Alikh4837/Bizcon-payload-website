@@ -25,6 +25,7 @@ import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { SplitContentBlock } from '@/blocks/SplitContentBlock/Config'
 import { AchievementBlock } from '@/blocks/AchievementBlock/Config'
 import { ProcessStepsBlock } from '@/blocks/ProcessStepsBlock/Config'
+import { TrustedBySliderBlock } from '@/blocks/TrustedBySliderBlock/Config'
 
 import {
   MetaDescriptionField,
@@ -107,6 +108,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 SplitContentBlock,
                 AchievementBlock,
                 ProcessStepsBlock,
+                TrustedBySliderBlock,
               ],
               required: true,
               admin: {

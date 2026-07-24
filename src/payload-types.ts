@@ -238,6 +238,7 @@ export interface Page {
     | SplitContentBlock
     | AchievementBlock
     | ProcessStepsBlock
+    | TrustedBySliderBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1349,6 +1350,46 @@ export interface ProcessStepsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrustedBySliderBlock".
+ */
+export interface TrustedBySliderBlock {
+  heading: string;
+  /**
+   * These auto-rotate every few seconds, with arrows for manual navigation.
+   */
+  testimonials?:
+    | {
+        avatar: number | Media;
+        quote: string;
+        name: string;
+        /**
+         * Shown next to the quote, e.g. "monday". Used as a fallback if no logo is set below.
+         */
+        company: string;
+        companyLogo?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The 3 cards below the slider, e.g. logo + "Project management" + "275% Growth".
+   */
+  metrics?:
+    | {
+        logo: number | Media;
+        description: string;
+        /**
+         * e.g. "275% Growth"
+         */
+        growthText: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'trustedBySliderBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1701,6 +1742,7 @@ export interface PagesSelect<T extends boolean = true> {
         splitContentBlock?: T | SplitContentBlockSelect<T>;
         achievementBlock?: T | AchievementBlockSelect<T>;
         processStepsBlock?: T | ProcessStepsBlockSelect<T>;
+        trustedBySliderBlock?: T | TrustedBySliderBlockSelect<T>;
       };
   meta?:
     | T
@@ -2104,6 +2146,33 @@ export interface ProcessStepsBlockSelect<T extends boolean = true> {
               label?: T;
               appearance?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrustedBySliderBlock_select".
+ */
+export interface TrustedBySliderBlockSelect<T extends boolean = true> {
+  heading?: T;
+  testimonials?:
+    | T
+    | {
+        avatar?: T;
+        quote?: T;
+        name?: T;
+        company?: T;
+        companyLogo?: T;
+        id?: T;
+      };
+  metrics?:
+    | T
+    | {
+        logo?: T;
+        description?: T;
+        growthText?: T;
         id?: T;
       };
   id?: T;
