@@ -17,7 +17,7 @@ import { TestimonialsBlock } from '@/blocks/TestimonialsBlock/Component'
 import { LogoStripBlock } from '@/blocks/LogoStripBlock/Component'
 import { TrendingBlock } from '@/blocks/TrendingBlock/Component'
 import { WhereWeServeBlock } from '@/blocks/WhereWeServe/Component'
-import { SplitContentBlockComponent } from './SplitContentBlock'
+import { SplitContentBlockComponent } from './SplitContentBlock/Component'
 
 const blockComponents = {
   aboutIntroBlock: AboutIntroBlock,
