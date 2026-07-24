@@ -236,6 +236,7 @@ export interface Page {
     | TrendingBlock
     | WhereWeServeBlock
     | SplitContentBlock
+    | AchievementBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1235,6 +1236,67 @@ export interface SplitContentBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AchievementBlock".
+ */
+export interface AchievementBlock {
+  eyebrow?: string | null;
+  title: string;
+  description?: string | null;
+  cta?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'blog';
+                value: number | Blog;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: 'default' | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown next to the CTA button, e.g. 1 800 222 000
+   */
+  phoneNumber?: string | null;
+  /**
+   * A transparent PNG works best for the illustration look.
+   */
+  image: number | Media;
+  imageBackground?: ('primary' | 'gray') | null;
+  badgeIcon?: ('Award' | 'Star' | 'Target' | 'Rocket' | 'TrendingUp' | 'ShieldCheck') | null;
+  /**
+   * e.g. "Creative Vision" — leave empty to hide the badge.
+   */
+  badgeLabel?: string | null;
+  statNumber: number;
+  statSuffix?: string | null;
+  statLabel: string;
+  stats?:
+    | {
+        number: number;
+        suffix?: string | null;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'achievementBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1585,6 +1647,7 @@ export interface PagesSelect<T extends boolean = true> {
         trendingBlock?: T | TrendingBlockSelect<T>;
         whereWeServeBlock?: T | WhereWeServeBlockSelect<T>;
         splitContentBlock?: T | SplitContentBlockSelect<T>;
+        achievementBlock?: T | AchievementBlockSelect<T>;
       };
   meta?:
     | T
@@ -1913,6 +1976,48 @@ export interface SplitContentBlockSelect<T extends boolean = true> {
   rounded?: T;
   background?: T;
   padding?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AchievementBlock_select".
+ */
+export interface AchievementBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  cta?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  phoneNumber?: T;
+  image?: T;
+  imageBackground?: T;
+  badgeIcon?: T;
+  badgeLabel?: T;
+  statNumber?: T;
+  statSuffix?: T;
+  statLabel?: T;
+  stats?:
+    | T
+    | {
+        number?: T;
+        suffix?: T;
+        label?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

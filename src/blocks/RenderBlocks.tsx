@@ -18,6 +18,8 @@ import { LogoStripBlock } from '@/blocks/LogoStripBlock/Component'
 import { TrendingBlock } from '@/blocks/TrendingBlock/Component'
 import { WhereWeServeBlock } from '@/blocks/WhereWeServe/Component'
 import { SplitContentBlockComponent } from './SplitContentBlock/Component'
+import { AchievementBlockComponent } from './AchievementBlock/Component'
+
 
 const blockComponents = {
   aboutIntroBlock: AboutIntroBlock,
@@ -36,6 +38,7 @@ const blockComponents = {
   trendingBlock: TrendingBlock,
   whereWeServeBlock: WhereWeServeBlock,
   splitContentBlock: SplitContentBlockComponent,
+  achievementBlock: AchievementBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{

@@ -23,6 +23,7 @@ import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { SplitContentBlock } from '@/blocks/SplitContentBlock/Config'
+import { AchievementBlock } from '@/blocks/AchievementBlock/Config'
 
 import {
   MetaDescriptionField,
@@ -103,6 +104,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 TrendingBlock,
                 WhereWeServeBlock,
                 SplitContentBlock,
+                AchievementBlock,
               ],
               required: true,
               admin: {

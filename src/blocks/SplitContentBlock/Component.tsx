@@ -29,8 +29,8 @@ export const SplitContentBlockComponent: React.FC<SplitContentBlockProps> = (
   }
 
   const backgroundClasses = {
-    white: 'bg-white',
-    gray: 'bg-gray-50',
+    white: 'bg-background',
+    gray: 'bg-muted',
   }
 
   return (
@@ -45,7 +45,6 @@ export const SplitContentBlockComponent: React.FC<SplitContentBlockProps> = (
         <div
           className={cn(
             'grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center',
-            imageFirst && 'lg:[&>*:first-child]:order-1',
           )}
         >
           {/* IMAGE */}
