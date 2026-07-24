@@ -235,6 +235,7 @@ export interface Page {
     | LogoStripBlock
     | TrendingBlock
     | WhereWeServeBlock
+    | SplitContentBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1203,6 +1204,37 @@ export interface WhereWeServeBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SplitContentBlock".
+ */
+export interface SplitContentBlock {
+  eyebrow?: string | null;
+  imagePosition?: ('left' | 'right') | null;
+  title: string;
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image: number | Media;
+  rounded?: boolean | null;
+  background?: ('white' | 'gray') | null;
+  padding?: ('small' | 'medium' | 'large') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'splitContentBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1552,6 +1584,7 @@ export interface PagesSelect<T extends boolean = true> {
         logoStripBlock?: T | LogoStripBlockSelect<T>;
         trendingBlock?: T | TrendingBlockSelect<T>;
         whereWeServeBlock?: T | WhereWeServeBlockSelect<T>;
+        splitContentBlock?: T | SplitContentBlockSelect<T>;
       };
   meta?:
     | T
@@ -1864,6 +1897,22 @@ export interface WhereWeServeBlockSelect<T extends boolean = true> {
         link?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SplitContentBlock_select".
+ */
+export interface SplitContentBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  imagePosition?: T;
+  title?: T;
+  richText?: T;
+  image?: T;
+  rounded?: T;
+  background?: T;
+  padding?: T;
   id?: T;
   blockName?: T;
 }

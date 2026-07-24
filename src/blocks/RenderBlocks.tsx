@@ -17,6 +17,7 @@ import { TestimonialsBlock } from '@/blocks/TestimonialsBlock/Component'
 import { LogoStripBlock } from '@/blocks/LogoStripBlock/Component'
 import { TrendingBlock } from '@/blocks/TrendingBlock/Component'
 import { WhereWeServeBlock } from '@/blocks/WhereWeServe/Component'
+import { SplitContentBlockComponent } from './SplitContentBlock'
 
 const blockComponents = {
   aboutIntroBlock: AboutIntroBlock,
@@ -34,6 +35,7 @@ const blockComponents = {
   logoStripBlock: LogoStripBlock,
   trendingBlock: TrendingBlock,
   whereWeServeBlock: WhereWeServeBlock,
+  splitContentBlock: SplitContentBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{

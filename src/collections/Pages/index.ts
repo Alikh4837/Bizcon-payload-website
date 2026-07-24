@@ -22,6 +22,7 @@ import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
+import { SplitContentBlock } from '@/blocks/SplitContentBlock/Config'
 
 import {
   MetaDescriptionField,
@@ -101,6 +102,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 LogoStripBlock,
                 TrendingBlock,
                 WhereWeServeBlock,
+                SplitContentBlock,
               ],
               required: true,
               admin: {
