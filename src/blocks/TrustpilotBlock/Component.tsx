@@ -31,10 +31,10 @@ export const TrustpilotBlockComponent: React.FC<TrustpilotBlockProps> = (props) 
   const { platformLogo, heading, rating, reviewCount, link } = props
 
   const content = (
-    <div className="flex flex-col items-center gap-4 text-center">
+    <div className="flex flex-col items-center gap-5 text-center">
       {heading && <p className="text-lg font-semibold md:text-xl">{heading}</p>}
 
-      <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+      <div className="flex w-full max-w-xl flex-col items-center justify-center gap-3 rounded-full border bg-card px-8 py-4 sm:flex-row sm:gap-5">
         {platformLogo && (
           <Media resource={platformLogo} imgClassName="h-6 md:h-7 w-auto object-contain" />
         )}

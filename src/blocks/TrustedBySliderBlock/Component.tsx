@@ -157,13 +157,13 @@ export const TrustedBySliderBlockComponent: React.FC<TrustedBySliderBlockProps> 
 
         {/* BRAND LOGO ROW */}
         {logos && logos.length > 0 && (
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-x-10 gap-y-6">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-14 gap-y-6">
             {logos.map((item, index) => {
               const { link, logo } = item
 
               const content =
                 logo && typeof logo === 'object' ? (
-                  <Media resource={logo} imgClassName="h-9 md:h-10 w-auto object-contain" />
+                  <Media resource={logo} imgClassName="h-11 md:h-12 w-auto object-contain" />
                 ) : null
 
               if (!content) return null
