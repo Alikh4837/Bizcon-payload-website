@@ -16,6 +16,7 @@ import * as migration_20260724_102152_add_process_steps_block from './20260724_1
 import * as migration_20260724_121452_add_trusted_by_slider_block from './20260724_121452_add_trusted_by_slider_block';
 import * as migration_20260724_133742_add_brand_logo_row_block from './20260724_133742_add_brand_logo_row_block';
 import * as migration_20260724_145152_merge_trustedby_logos_and_add_trustpilot from './20260724_145152_merge_trustedby_logos_and_add_trustpilot';
+import * as migration_20260725_121001_add_services_stats_hero_block from './20260725_121001_add_services_stats_hero_block';
 
 export const migrations = [
   {
@@ -106,6 +107,11 @@ export const migrations = [
   {
     up: migration_20260724_145152_merge_trustedby_logos_and_add_trustpilot.up,
     down: migration_20260724_145152_merge_trustedby_logos_and_add_trustpilot.down,
-    name: '20260724_145152_merge_trustedby_logos_and_add_trustpilot'
+    name: '20260724_145152_merge_trustedby_logos_and_add_trustpilot',
+  },
+  {
+    up: migration_20260725_121001_add_services_stats_hero_block.up,
+    down: migration_20260725_121001_add_services_stats_hero_block.down,
+    name: '20260725_121001_add_services_stats_hero_block'
   },
 ];
