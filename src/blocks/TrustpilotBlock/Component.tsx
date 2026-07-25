@@ -36,7 +36,9 @@ export const TrustpilotBlockComponent: React.FC<TrustpilotBlockProps> = (props) 
 
       <div className="flex w-full max-w-xl flex-col items-center justify-center gap-3 rounded-full border bg-card px-8 py-4 sm:flex-row sm:gap-5">
         {platformLogo && (
+          <div className="overflow-hidden rounded-2xl">
           <Media resource={platformLogo} imgClassName="h-6 md:h-7 w-auto object-contain" />
+          </div>
         )}
         <Stars rating={rating || 0} />
         {reviewCount && (

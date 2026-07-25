@@ -163,7 +163,7 @@ export const AchievementBlockComponent: React.FC<AchievementBlockProps> = (props
             {/* soft decorative circle */}
             <div
               className={cn(
-                'absolute inset-0 m-auto h-[85%] w-[85%] rounded-full',
+                'absolute inset-0 m-auto h-[80%] w-[85%] rounded-full',
                 circleBg,
               )}
             />
@@ -172,7 +172,7 @@ export const AchievementBlockComponent: React.FC<AchievementBlockProps> = (props
             {image && (
               <Media
                 resource={image}
-                className="absolute inset-0 h-full w-full"
+                className="absolute inset-0 h-full w-full scale-90 -translate-x-8 translate-y-10 sm:scale-85 sm:-translate-x-16 sm:translate-y-16 md:scale-75 md:-translate-x-35 md:translate-y-25"
                 imgClassName="h-full w-full object-contain"
               />
             )}

@@ -143,10 +143,12 @@ export const TrustedBySliderBlockComponent: React.FC<TrustedBySliderBlockProps> 
             {metrics.map((metric, i) => (
               <div
                 key={i}
-                className="flex flex-col items-center gap-4 rounded-2xl border bg-card px-6 py-8 text-center"
+                className="flex flex-col items-center gap-4 rounded-2xl border bg-card px-6 py-6 text-center"
               >
                 {metric.logo && (
-                  <Media resource={metric.logo} imgClassName="h-7 w-auto object-contain" />
+                  <div className="overflow-hidden rounded-2xl">
+                  <Media resource={metric.logo} imgClassName="h-10 w-auto object-contain" />
+                  </div>
                 )}
                 <p className="text-sm text-muted-foreground">{metric.description}</p>
                 <p className="text-sm font-semibold text-primary">{metric.growthText}</p>
@@ -163,7 +165,9 @@ export const TrustedBySliderBlockComponent: React.FC<TrustedBySliderBlockProps> 
 
               const content =
                 logo && typeof logo === 'object' ? (
+                  <div className="overflow-hidden rounded-2xl">
                   <Media resource={logo} imgClassName="h-11 md:h-12 w-auto object-contain" />
+                  </div>
                 ) : null
 
               if (!content) return null
