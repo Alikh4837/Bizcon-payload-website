@@ -242,6 +242,7 @@ export interface Page {
     | BrandLogoRowBlock
     | TrustpilotBlock
     | ServicesStatsHeroBlock
+    | ServicesFaqBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1520,6 +1521,29 @@ export interface ServicesStatsHeroBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesFaqBlock".
+ */
+export interface ServicesFaqBlock {
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Shown in a circle on the left.
+   */
+  image: number | Media;
+  badgeIcon?: ('MessageCircleQuestion' | 'MessageCircle' | 'HelpCircle' | 'Users') | null;
+  items?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesFaqBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1876,6 +1900,7 @@ export interface PagesSelect<T extends boolean = true> {
         brandLogoRowBlock?: T | BrandLogoRowBlockSelect<T>;
         trustpilotBlock?: T | TrustpilotBlockSelect<T>;
         servicesStatsHeroBlock?: T | ServicesStatsHeroBlockSelect<T>;
+        servicesFaqBlock?: T | ServicesFaqBlockSelect<T>;
       };
   meta?:
     | T
@@ -2379,6 +2404,25 @@ export interface ServicesStatsHeroBlockSelect<T extends boolean = true> {
               label?: T;
               appearance?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesFaqBlock_select".
+ */
+export interface ServicesFaqBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  image?: T;
+  badgeIcon?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
         id?: T;
       };
   id?: T;

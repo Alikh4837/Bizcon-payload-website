@@ -24,6 +24,7 @@ import { TrustedBySliderBlockComponent } from '@/blocks/TrustedBySliderBlock/Com
 import { BrandLogoRowBlockComponent } from '@/blocks/BrandLogoRowBlock/Component'
 import { TrustpilotBlockComponent } from '@/blocks/TrustpilotBlock/Component'
 import { ServicesStatsHeroBlockComponent } from '@/blocks/ServicesStatsHeroBlock/Component'
+import { ServicesFaqBlockComponent } from '@/blocks/ServicesFaqBlock/Component'
 
 
 
@@ -51,6 +52,7 @@ const blockComponents = {
   brandLogoRowBlock: BrandLogoRowBlockComponent,
   trustpilotBlock: TrustpilotBlockComponent,
   servicesStatsHeroBlock: ServicesStatsHeroBlockComponent,
+  servicesFaqBlock: ServicesFaqBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{
