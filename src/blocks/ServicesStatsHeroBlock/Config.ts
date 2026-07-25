@@ -4,6 +4,7 @@ import { linkGroup } from '../../fields/linkGroup'
 
 export const ServicesStatsHeroBlock: Block = {
   slug: 'servicesStatsHeroBlock',
+  dbName: 'stats_hero',
   interfaceName: 'ServicesStatsHeroBlock',
 
   labels: {
