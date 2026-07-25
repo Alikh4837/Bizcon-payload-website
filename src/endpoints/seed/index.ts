@@ -48,9 +48,7 @@ export const seed = async ({
     globals.map((global) =>
       payload.updateGlobal({
         slug: global,
-        data: {
-          navItems: [],
-        },
+        data: {},
         depth: 0,
         context: {
           disableRevalidate: true,
@@ -245,31 +243,40 @@ export const seed = async ({
     payload.updateGlobal({
       slug: 'footer',
       data: {
-        navItems: [
+        description: 'Gearing your company through an innovative strategy.',
+        columns: [
           {
-            link: {
-              type: 'custom',
-              label: 'Admin',
-              url: '/admin',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Source Code',
-              newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/3.x/templates/website',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Payload',
-              newTab: true,
-              url: 'https://payloadcms.com/',
-            },
+            heading: 'Resources',
+            links: [
+              {
+                link: {
+                  type: 'custom',
+                  label: 'Admin',
+                  url: '/admin',
+                },
+              },
+              {
+                link: {
+                  type: 'custom',
+                  label: 'Source Code',
+                  newTab: true,
+                  url: 'https://github.com/payloadcms/payload/tree/3.x/templates/website',
+                },
+              },
+              {
+                link: {
+                  type: 'custom',
+                  label: 'Payload',
+                  newTab: true,
+                  url: 'https://payloadcms.com/',
+                },
+              },
+            ],
           },
         ],
+        bottomBar: {
+          copyrightText: `© ${new Date().getFullYear()} BizCon Global. All rights reserved.`,
+        },
       },
     }),
   ])
