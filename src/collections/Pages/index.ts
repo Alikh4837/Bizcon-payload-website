@@ -28,6 +28,7 @@ import { ProcessStepsBlock } from '@/blocks/ProcessStepsBlock/Config'
 import { TrustedBySliderBlock } from '@/blocks/TrustedBySliderBlock/Config'
 import {BrandLogoRowBlock} from '@/blocks/BrandLogoRowBlock/Config'
 import { TrustpilotBlock } from '@/blocks/TrustpilotBlock/Config'
+import { ServicesStatsHeroBlock } from '@/blocks/ServicesStatsHeroBlock/Config'
 
 
 import {
@@ -114,6 +115,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 TrustedBySliderBlock,
                 BrandLogoRowBlock,
                 TrustpilotBlock,
+                ServicesStatsHeroBlock,
               ],
               required: true,
               admin: {

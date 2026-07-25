@@ -241,6 +241,7 @@ export interface Page {
     | TrustedBySliderBlock
     | BrandLogoRowBlock
     | TrustpilotBlock
+    | ServicesStatsHeroBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1453,6 +1454,72 @@ export interface TrustpilotBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesStatsHeroBlock".
+ */
+export interface ServicesStatsHeroBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  /**
+   * Up to 3 rows shown in the stacked card on the left.
+   */
+  statCards?:
+    | {
+        /**
+         * e.g. "99%" or "4.9"
+         */
+        value: string;
+        showStars?: boolean | null;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  highlightIcon?: ('Trophy' | 'Award' | 'Star' | 'ShieldCheck' | 'Rocket') | null;
+  /**
+   * Shown in the gradient pill. Leave empty to hide it.
+   */
+  highlightText?: string | null;
+  /**
+   * e.g. "722+"
+   */
+  reviewCount?: string | null;
+  /**
+   * e.g. "5 star reviews from our satisfied customers." Leave empty to hide this row.
+   */
+  reviewText?: string | null;
+  /**
+   * Optional CTA button, not shown in the reference but available if needed.
+   */
+  cta?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'blog';
+                value: number | Blog;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: 'default' | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesStatsHeroBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "comments".
  */
 export interface Comment {
@@ -1808,6 +1875,7 @@ export interface PagesSelect<T extends boolean = true> {
         trustedBySliderBlock?: T | TrustedBySliderBlockSelect<T>;
         brandLogoRowBlock?: T | BrandLogoRowBlockSelect<T>;
         trustpilotBlock?: T | TrustpilotBlockSelect<T>;
+        servicesStatsHeroBlock?: T | ServicesStatsHeroBlockSelect<T>;
       };
   meta?:
     | T
@@ -2275,6 +2343,44 @@ export interface TrustpilotBlockSelect<T extends boolean = true> {
   rating?: T;
   reviewCount?: T;
   link?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesStatsHeroBlock_select".
+ */
+export interface ServicesStatsHeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  statCards?:
+    | T
+    | {
+        value?: T;
+        showStars?: T;
+        label?: T;
+        id?: T;
+      };
+  highlightIcon?: T;
+  highlightText?: T;
+  reviewCount?: T;
+  reviewText?: T;
+  cta?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
