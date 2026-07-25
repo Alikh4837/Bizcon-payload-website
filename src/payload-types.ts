@@ -2945,28 +2945,80 @@ export interface Header {
 export interface Footer {
   id: number;
   /**
-   * These links appear in the site footer, on every page. Drag to reorder.
+   * Short line under the logo, e.g. "Gearing your company through an innovative strategy."
    */
-  navItems?:
+  description?: string | null;
+  socialLinks?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'blog';
-                value: number | Blog;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        platform: 'Facebook' | 'Instagram' | 'Twitter' | 'Linkedin' | 'Youtube' | 'Github';
+        url: string;
         id?: string | null;
       }[]
     | null;
+  /**
+   * e.g. "Company", "Services", "Customer" — up to 4 columns.
+   */
+  columns?:
+    | {
+        heading: string;
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'blog';
+                      value: number | Blog;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              /**
+               * e.g. "HOT". Leave empty to hide.
+               */
+              badge?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  newsletter?: {
+    heading?: string | null;
+    description?: string | null;
+    placeholder?: string | null;
+  };
+  bottomBar?: {
+    /**
+     * e.g. "© 2026 BizCon Global. All rights reserved."
+     */
+    copyrightText?: string | null;
+    policyLinks?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'blog';
+                  value: number | Blog;
+                } | null);
+            url?: string | null;
+            label: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3004,19 +3056,60 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  description?: T;
+  socialLinks?:
     | T
     | {
-        link?:
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  columns?:
+    | T
+    | {
+        heading?: T;
+        links?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              badge?: T;
+              id?: T;
             };
         id?: T;
+      };
+  newsletter?:
+    | T
+    | {
+        heading?: T;
+        description?: T;
+        placeholder?: T;
+      };
+  bottomBar?:
+    | T
+    | {
+        copyrightText?: T;
+        policyLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
