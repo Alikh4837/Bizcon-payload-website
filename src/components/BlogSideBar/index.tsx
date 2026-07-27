@@ -6,21 +6,26 @@ import { CategoryFilter } from './CategoryFilter'
 
 export const BlogSidebar: React.FC<{ activeCategory?: string }> = async ({ activeCategory }) => {
   const payload = await getPayload({ config: configPromise })
-
-  const [categories, tags] = await Promise.all([
-    payload.find({
-      collection: 'categories',
-      limit: 100,
-      overrideAccess: false,
-      select: { title: true, slug: true },
-    }),
-    payload.find({
-      collection: 'tags',
-      limit: 8, // trimmed — a full WP-style tag cloud reads as dated, keep this to a light supplement
-      overrideAccess: false,
-      select: { title: true, slug: true },
-    }),
-  ])
+     const categories = await payload.find({
+     collection: 'categories',
+     limit: 100,
+     overrideAccess: false,
+     select: { title: true, slug: true },
+   })
+  // const [categories, tags] = await Promise.all([
+  //   payload.find({
+  //     collection: 'categories',
+  //     limit: 100,
+  //     overrideAccess: false,
+  //     select: { title: true, slug: true },
+  //   }),
+  //   payload.find({
+  //     collection: 'tags',
+  //     limit: 8, // trimmed — a full WP-style tag cloud reads as dated, keep this to a light supplement
+  //     overrideAccess: false,
+  //     select: { title: true, slug: true },
+  //   }),
+  // ])
 
   return (
     <aside className="flex flex-col gap-8">
@@ -44,7 +49,7 @@ export const BlogSidebar: React.FC<{ activeCategory?: string }> = async ({ activ
         />
       </div>
 
-      {tags.docs.length > 0 && (
+      {/* {tags.docs.length > 0 && (
         <div className="rounded-lg border border-brand-line bg-card p-6">
           <h3 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-3">
             Related tags
@@ -61,7 +66,7 @@ export const BlogSidebar: React.FC<{ activeCategory?: string }> = async ({ activ
             ))}
           </div>
         </div>
-      )}
+      )} */}
 
       <div
         className="rounded-lg p-6 text-brand-accent-foreground"
