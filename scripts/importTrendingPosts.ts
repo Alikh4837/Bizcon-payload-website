@@ -693,7 +693,7 @@ const posts: SourcePost[] = [
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
-
+console.log('DB HOST:', process.env.DATABASE_URL?.split('@')[1]?.split('/')[0]) 
 async function downloadImage(url: string): Promise<{ data: Buffer; mimetype: string; filename: string }> {
   const res = await fetch(url)
   if (!res.ok) throw new Error(`Failed to download ${url}: ${res.status}`)
@@ -736,10 +736,17 @@ async function main() {
     })
 
     if (existing.docs.length > 0) {
-      console.log(`SKIP (already exists): ${post.title}`)
-      slugToId[post.slug] = existing.docs[0].id
-      continue
-    }
+  console.log(`SKIP (already exists): ${post.title}`)
+  console.log('  MATCHED DOC:', JSON.stringify({
+    id: existing.docs[0].id,
+    title: existing.docs[0].title,
+    slug: existing.docs[0].slug,
+    _status: existing.docs[0]._status,
+    createdAt: existing.docs[0].createdAt,
+  }))
+  slugToId[post.slug] = existing.docs[0].id
+  continue
+}
 
     console.log(`Downloading hero image for: ${post.title}`)
     const { data, mimetype, filename } = await downloadImage(post.heroImage)
@@ -799,14 +806,26 @@ async function main() {
     const newLayout = page.layout.map((block: any) => {
       if (block.blockType !== 'trendingBlock' || !Array.isArray(block.items)) return block
 
-      const newItems = block.items.map((item: any) => {
-        const matchedPost = posts.find((p) => p.title.trim() === (item.title || '').trim())
-        if (matchedPost && item.link !== `/blog/${matchedPost.slug}`) {
-          changed = true
-          return { ...item, link: `/blog/${matchedPost.slug}` }
-        }
-        return item
-      })
+      const normalize = (s: string) =>
+  (s || '')
+    .toLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+
+const newItems = block.items.map((item: any) => {
+  const matchedPost = posts.find((p) => normalize(p.title) === normalize(item.title || ''))
+  if (matchedPost && item.link !== `/blog/${matchedPost.slug}`) {
+    changed = true
+    console.log(`  ✅ patching "${item.title}" -> /blog/${matchedPost.slug}`)
+    return { ...item, link: `/blog/${matchedPost.slug}` }
+  }
+  if (!matchedPost) {
+    console.log(`  ❌ still no match for card titled: "${item.title}"`)
+  }
+  return item
+})
 
       return { ...block, items: newItems }
     })
