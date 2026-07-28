@@ -21,7 +21,7 @@ export const BrandLogoRowBlockComponent: React.FC<BrandLogoRowBlockProps> = (pro
                 logo && typeof logo === 'object' ? (
                   <Media
                     resource={logo}
-                    imgClassName="h-6 md:h-7 w-auto object-contain grayscale opacity-60 transition-opacity hover:opacity-100"
+                    imgClassName="h-8 md:h-10 w-auto object-contain grayscale opacity-60 transition-opacity hover:opacity-100"
                   />
                 ) : null
 
@@ -38,7 +38,7 @@ export const BrandLogoRowBlockComponent: React.FC<BrandLogoRowBlockProps> = (pro
           </div>
 
           {heading && (
-            <h2 className="shrink-0 text-center text-2xl md:text-3xl font-bold leading-snug text-brand-ink md:max-w-xs md:text-right">
+            <h2 className="shrink-0 text-center text-2xl md:text-3xl font-bold leading-snug text-brand-ink md:text-right whitespace-nowrap">
               {heading}
             </h2>
           )}
