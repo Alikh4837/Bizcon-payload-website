@@ -2960,7 +2960,7 @@ export interface Footer {
   description?: string | null;
   socialLinks?:
     | {
-        platform: 'Facebook' | 'Instagram' | 'Twitter' | 'Linkedin' | 'Youtube' | 'Github';
+        platform: 'Facebook' | 'Instagram' | 'Twitter' | 'Linkedin' | 'Youtube' | 'Github' | 'Whatsapp';
         url: string;
         id?: string | null;
       }[]
