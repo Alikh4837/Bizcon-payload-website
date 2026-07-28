@@ -1078,6 +1078,10 @@ export interface TestimonialsBlock {
   eyebrow?: string | null;
   heading?: string | null;
   /**
+   * Optional. Shown under the heading, next to the arrow controls.
+   */
+  description?: string | null;
+  /**
    * Placeholder testimonials for now — swap in real client quotes when available.
    */
   items?:
@@ -1411,7 +1415,11 @@ export interface TrustedBySliderBlock {
  */
 export interface BrandLogoRowBlock {
   /**
-   * Shown full-color, evenly spaced across the row — no heading, no card borders. Meant to sit directly under the Trusted By Slider block.
+   * Optional. Shown beside the logos, e.g. "We work with the best brands".
+   */
+  heading?: string | null;
+  /**
+   * Shown grayscale, evenly spaced beside the heading.
    */
   logos?:
     | {
@@ -2139,6 +2147,7 @@ export interface ServicesSliderBlockSelect<T extends boolean = true> {
 export interface TestimonialsBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
+  description?: T;
   items?:
     | T
     | {
@@ -2348,6 +2357,7 @@ export interface TrustedBySliderBlockSelect<T extends boolean = true> {
  * via the `definition` "BrandLogoRowBlock_select".
  */
 export interface BrandLogoRowBlockSelect<T extends boolean = true> {
+  heading?: T;
   logos?:
     | T
     | {

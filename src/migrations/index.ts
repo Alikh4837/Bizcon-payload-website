@@ -19,6 +19,7 @@ import * as migration_20260724_145152_merge_trustedby_logos_and_add_trustpilot f
 import * as migration_20260725_121001_add_services_stats_hero_block from './20260725_121001_add_services_stats_hero_block';
 import * as migration_20260725_125347_add_services_faq_block from './20260725_125347_add_services_faq_block';
 import * as migration_20260725_131145_redesign_footer from './20260725_131145_redesign_footer';
+import * as migration_20260728_114000_add_brand_logo_heading_and_testimonials_description from './20260728_114000_add_brand_logo_heading_and_testimonials_description';
 
 export const migrations = [
   {
@@ -124,6 +125,11 @@ export const migrations = [
   {
     up: migration_20260725_131145_redesign_footer.up,
     down: migration_20260725_131145_redesign_footer.down,
-    name: '20260725_131145_redesign_footer'
+    name: '20260725_131145_redesign_footer',
+  },
+  {
+    up: migration_20260728_114000_add_brand_logo_heading_and_testimonials_description.up,
+    down: migration_20260728_114000_add_brand_logo_heading_and_testimonials_description.down,
+    name: '20260728_114000_add_brand_logo_heading_and_testimonials_description'
   },
 ];

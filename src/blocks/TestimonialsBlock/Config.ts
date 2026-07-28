@@ -18,6 +18,13 @@ export const TestimonialsBlock: Block = {
       type: 'text',
     },
     {
+      name: 'description',
+      type: 'textarea',
+      admin: {
+        description: 'Optional. Shown under the heading, next to the arrow controls.',
+      },
+    },
+    {
       name: 'items',
       type: 'array',
       admin: {

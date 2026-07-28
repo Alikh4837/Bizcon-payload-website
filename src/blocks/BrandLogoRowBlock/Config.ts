@@ -11,6 +11,14 @@ export const BrandLogoRowBlock: Block = {
 
   fields: [
     {
+      name: 'heading',
+      label: 'Heading',
+      type: 'text',
+      admin: {
+        description: 'Optional. Shown beside the logos, e.g. "We work with the best brands".',
+      },
+    },
+    {
       name: 'logos',
       label: 'Logos',
       type: 'array',
@@ -22,8 +30,7 @@ export const BrandLogoRowBlock: Block = {
       },
       admin: {
         initCollapsed: true,
-        description:
-          'Shown full-color, evenly spaced across the row — no heading, no card borders. Meant to sit directly under the Trusted By Slider block.',
+        description: 'Shown grayscale, evenly spaced beside the heading.',
       },
       fields: [
         {
