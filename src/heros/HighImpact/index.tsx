@@ -74,7 +74,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ galleryImages, links })
               index === activeIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <Media fill imgClassName="object-contain" priority={index === 0} resource={slide.image} />
+            <Media fill imgClassName="object-cover" priority={index === 0} resource={slide.image} />
             <div className="absolute inset-0 bg-black/20" />
           </div>
         ))}
