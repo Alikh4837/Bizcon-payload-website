@@ -1,5 +1,6 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { Facebook, Github, Instagram, Linkedin, Send, Twitter, Youtube } from 'lucide-react'
+import { FaWhatsapp } from 'react-icons/fa'
 import Link from 'next/link'
 import React from 'react'
 
@@ -14,6 +15,7 @@ const socialIcons = {
   Linkedin,
   Youtube,
   Github,
+  Whatsapp: FaWhatsapp,
 } as const
 
 export async function Footer() {
