@@ -32,11 +32,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   return (
     <header
       className="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-white/10 backdrop-blur-md bg-white dark:bg-[#0E1B34]"
-      {...(theme ? { 'data-theme': theme } : {})}
+      {...(theme ? { 'data-header-theme': theme } : {})}
     >
       <div className="container flex items-center justify-between py-3 md:py-4">
         <Link href="/" className="shrink-0">
-          <Logo loading="eager" priority="high" className="dark:invert" />
+          <Logo loading="eager" priority="high" className="dark:hidden" />
+          <Logo loading="eager" priority="high" dark className="hidden dark:block" />
         </Link>
 
         <HeaderNav data={data} />
