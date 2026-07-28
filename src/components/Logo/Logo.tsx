@@ -24,7 +24,7 @@ export const Logo = (props: Props) => {
       fetchPriority={priority}
       decoding="async"
       className={clsx('max-w-[9.375rem] w-full h-[34px] object-contain', className)}
-      src={dark ? '/bizcon-logo-white.png' : '/bizcon-logo.png'}
+      src={dark ? '/bizcon-logo.png' : '/bizcon-logo-dark.png'}
     />
   )
 }

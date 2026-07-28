@@ -28,7 +28,7 @@ export async function Footer() {
           {/* BRAND */}
           <div className="lg:col-span-1">
             <Link className="flex items-center" href="/">
-              <Logo />
+              <Logo dark />
             </Link>
 
             {description && (

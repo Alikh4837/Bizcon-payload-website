@@ -15,41 +15,20 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-// Rough lat/lng for common regions, used only to place a decorative pin on the
-// map — approximate on purpose, this is a stylized illustration, not a
-// navigational map.
-const COUNTRY_COORDS: Record<string, { lat: number; lng: number }> = {
-  australia: { lat: -25, lng: 134 },
-  bangladesh: { lat: 24, lng: 90 },
-  canada: { lat: 56, lng: -106 },
-  china: { lat: 35, lng: 105 },
-  egypt: { lat: 26, lng: 30 },
-  france: { lat: 47, lng: 2 },
-  germany: { lat: 51, lng: 10 },
-  india: { lat: 21, lng: 78 },
-  ireland: { lat: 53, lng: -8 },
-  italy: { lat: 42, lng: 12 },
-  japan: { lat: 36, lng: 138 },
-  kenya: { lat: 1, lng: 38 },
-  malaysia: { lat: 4, lng: 102 },
-  pakistan: { lat: 30, lng: 70 },
-  qatar: { lat: 25, lng: 51 },
-  'saudi arabia': { lat: 24, lng: 45 },
-  singapore: { lat: 1, lng: 104 },
-  'south africa': { lat: -30, lng: 25 },
-  spain: { lat: 40, lng: -4 },
-  turkey: { lat: 39, lng: 35 },
-  uae: { lat: 24, lng: 54 },
-  'united arab emirates': { lat: 24, lng: 54 },
-  'united kingdom': { lat: 54, lng: -2 },
-  'united states': { lat: 39, lng: -98 },
-  usa: { lat: 39, lng: -98 },
+import { WORLD_MAP_CENTROIDS, WORLD_MAP_PATHS, WORLD_MAP_VIEWBOX } from './worldMapData'
+
+// A handful of common abbreviations editors might type into the "country"
+// field — normalized the same way as the map data's own alias entries.
+const COUNTRY_ALIASES: Record<string, string> = {
+  uae: 'united arab emirates',
+  uk: 'united kingdom',
+  usa: 'united states',
 }
 
-const toPercent = (lat: number, lng: number) => ({
-  left: ((lng + 180) / 360) * 100,
-  top: ((90 - lat) / 180) * 100,
-})
+const normalizeCountry = (value?: string | null) => {
+  const key = (value || '').trim().toLowerCase()
+  return COUNTRY_ALIASES[key] || key
+}
 
 export const WhereWeServeBlock: React.FC<WhereWeServeBlockProps> = (props) => {
   const { description, eyebrow, heading, regions, stats } = props
@@ -58,17 +37,22 @@ export const WhereWeServeBlock: React.FC<WhereWeServeBlockProps> = (props) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const active = list[activeIndex]
 
+  const servedKeys = useMemo(
+    () => new Set(list.map((region) => normalizeCountry(region.country))),
+    [list],
+  )
+
+  // Pins — one per served region, placed at that country's real centroid in
+  // the map's own coordinate space. Falls back to spreading unmatched
+  // countries (e.g. a typo, or a micro-region not in the atlas) evenly along
+  // the equator so nothing ever fails to render.
   const pins = useMemo(
     () =>
       list.map((region, index) => {
-        const key = region.country?.trim().toLowerCase() || ''
-        const coords = COUNTRY_COORDS[key]
-        const position = coords
-          ? toPercent(coords.lat, coords.lng)
-          : // Spread unrecognized countries evenly along the equator so nothing
-            // ever fails to render.
-            { left: 15 + ((index * 70) % 70), top: 55 }
-        return { index, position, region }
+        const key = normalizeCountry(region.country)
+        const centroid = WORLD_MAP_CENTROIDS[key]
+        const point = centroid || { cx: 200 + ((index * 300) % 1600), cy: 430 }
+        return { index, point, region }
       }),
     [list],
   )
@@ -76,50 +60,84 @@ export const WhereWeServeBlock: React.FC<WhereWeServeBlockProps> = (props) => {
   return (
     <div className="container">
       <div className="relative overflow-hidden rounded-3xl border border-brand-line bg-brand-surface p-6 md:p-10 lg:p-14">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-          {/* Left: stylized world map with pins */}
+        <div className="grid gap-12 lg:grid-cols-[3fr_2fr] lg:items-center lg:gap-16">
+          {/* Left: real-geography world map, served countries highlighted + pinned */}
           <div>
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-brand-line bg-card">
-              {/* Abstract continent silhouettes — decorative, not geographically precise */}
               <svg
-                viewBox="0 0 100 55"
-                className="absolute inset-0 h-full w-full text-brand-ink/[0.08]"
-                fill="currentColor"
+                viewBox={WORLD_MAP_VIEWBOX}
+                className="absolute inset-0 h-full w-full"
                 aria-hidden="true"
               >
-                <ellipse cx="20" cy="16" rx="10" ry="7" />
-                <ellipse cx="27" cy="30" rx="6" ry="10" />
-                <ellipse cx="50" cy="14" rx="8" ry="6" />
-                <ellipse cx="53" cy="30" rx="7" ry="11" />
-                <ellipse cx="70" cy="18" rx="13" ry="9" />
-                <ellipse cx="80" cy="38" rx="7" ry="6" />
-                <ellipse cx="86" cy="47" rx="5" ry="3" />
-              </svg>
+                {WORLD_MAP_PATHS.map((path, index) => {
+                  const isServed = servedKeys.has(normalizeCountry(path.country))
+                  return (
+                    <path
+                      key={index}
+                      d={path.d}
+                      className={
+                        isServed
+                          ? 'fill-brand-accent/60 stroke-brand-accent/80 transition-colors'
+                          : 'fill-brand-ink/[0.08] stroke-brand-ink/10 transition-colors dark:fill-white/[0.08] dark:stroke-white/10'
+                      }
+                      strokeWidth={1}
+                    />
+                  )
+                })}
 
-              {/* Pins */}
-              {pins.map(({ index, position, region }) => {
-                const isActive = index === activeIndex
-                return (
-                  <button
-                    key={index}
-                    type="button"
-                    aria-label={`Show ${region.country}`}
-                    onClick={() => setActiveIndex(index)}
-                    className="absolute -translate-x-1/2 -translate-y-1/2"
-                    style={{ left: `${position.left}%`, top: `${position.top}%` }}
-                  >
-                    <span
-                      className={`relative flex h-4 w-4 items-center justify-center rounded-full border-2 border-card shadow-sm transition-transform ${
-                        isActive ? 'scale-125 bg-brand-accent' : 'bg-brand-ink/60 hover:bg-brand-accent'
-                      }`}
+                {/* Pins, drawn in the same coordinate space so they land exactly
+                    on the country they represent. */}
+                {pins.map(({ index, point, region }) => {
+                  const isActive = index === activeIndex
+                  return (
+                    <g
+                      key={index}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Show ${region.country}`}
+                      onClick={() => setActiveIndex(index)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') setActiveIndex(index)
+                      }}
+                      className="cursor-pointer outline-none"
                     >
                       {isActive && (
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent/50" />
+                        <circle
+                          cx={point.cx}
+                          cy={point.cy}
+                          r={14}
+                          className="fill-brand-accent/40"
+                          style={{ transformOrigin: `${point.cx}px ${point.cy}px` }}
+                        >
+                          <animate
+                            attributeName="r"
+                            values="8;20;8"
+                            dur="1.8s"
+                            repeatCount="indefinite"
+                          />
+                          <animate
+                            attributeName="opacity"
+                            values="0.5;0;0.5"
+                            dur="1.8s"
+                            repeatCount="indefinite"
+                          />
+                        </circle>
                       )}
-                    </span>
-                  </button>
-                )
-              })}
+                      <circle
+                        cx={point.cx}
+                        cy={point.cy}
+                        r={isActive ? 10 : 8}
+                        className={
+                          isActive
+                            ? 'fill-brand-accent stroke-card transition-all'
+                            : 'fill-brand-ink/70 stroke-card transition-all hover:fill-brand-accent dark:fill-white/70'
+                        }
+                        strokeWidth={3}
+                      />
+                    </g>
+                  )
+                })}
+              </svg>
             </div>
 
             {/* Legend */}
@@ -129,7 +147,7 @@ export const WhereWeServeBlock: React.FC<WhereWeServeBlockProps> = (props) => {
                 Selected region
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-brand-ink/60" />
+                <span className="h-2.5 w-2.5 rounded-full bg-brand-ink/60 dark:bg-white/60" />
                 Where we serve
               </span>
             </div>
