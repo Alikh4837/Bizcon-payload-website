@@ -126,14 +126,18 @@ const TestimonialCard: React.FC<{ item: TestimonialItem }> = ({ item }) => {
 
   return (
     <div
-      className="h-full shrink-0 rounded-2xl border border-brand-line bg-card p-6 shadow-sm"
+      className="flex h-full shrink-0 flex-col rounded-2xl border border-brand-line bg-card p-6 shadow-sm"
       style={{ width: `calc(100% / ${VISIBLE_DESKTOP} - 1rem)` }}
     >
-      <p className="mb-4 text-sm leading-relaxed text-muted-foreground">&ldquo;{quote}&rdquo;</p>
-      <p className="font-display font-semibold text-brand-ink">{name}</p>
-      {role && (
-        <p className="mt-0.5 text-xs uppercase tracking-wider text-muted-foreground">{role}</p>
-      )}
+      <p className="mb-4 line-clamp-6 text-sm leading-relaxed text-muted-foreground">
+        &ldquo;{quote}&rdquo;
+      </p>
+      <div className="mt-auto">
+        <p className="font-display font-semibold text-brand-ink">{name}</p>
+        {role && (
+          <p className="mt-0.5 text-xs uppercase tracking-wider text-muted-foreground">{role}</p>
+        )}
+      </div>
     </div>
   )
 }
